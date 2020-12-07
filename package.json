@@ -10,10 +10,19 @@
     "type": "git",
     "url": "git+https://github.com/SusanLiu93/visual-pracitce.git"
   },
-  "author": "",
+  "author": "liuss",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SusanLiu93/visual-pracitce/issues"
   },
-  "homepage": "https://github.com/SusanLiu93/visual-pracitce#readme"
+  "homepage": "https://github.com/SusanLiu93/visual-pracitce#readme",
+  "keywords": [
+    "d3.js",
+    "svg",
+    "canvas"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
 }

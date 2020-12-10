@@ -4,10 +4,14 @@
     <div class="item"></div>
     <div class="item"></div>
     <div class="data-item"></div>
+    <div class="data-item2"></div>
+    <div class="data-item2"></div>
+    <div class="call"></div>
   </div>
 </template>
 <script>
 export default {
+  name:'data',
   mounted() {
     console.log(this.d3.selectAll('.list'));
     /**
@@ -27,12 +31,28 @@ export default {
       .select('.list')
       .selectAll('.data-item')
       .data(['水果', '蔬菜', '海鲜']);
+
     let enter = p
       .enter()
       .append('div')
       .attr('class', 'data-item')
       .text((d) => d);
     let update = p.text((d) => d);
+    let data2 = ['蓝莓'];
+
+    let p2 = this.d3
+      .select('.list')
+      .selectAll('.data-item2')
+      .data(data2);
+    p2.exit().text(function(d) {
+      return 'exit';
+    });
+    // let exit = p2.exit().remove();
+    let update2 = p2.text((d) => d);
+
+    this.d3.selectAll('.call').call(function(item) {
+      item.text((d) => 'test');
+    });
   },
 };
 </script>

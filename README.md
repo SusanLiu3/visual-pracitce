@@ -171,9 +171,10 @@
 
   - [padding(),paddingOuter(),paddingInner()](<img src='./d3/img/band.png' />)
   - padding() 内边距和外边距设置为相同边距值的简写 默认是 0
+  - paddingInner() 内边距 paddingOuter() 外边距 padding() 内外边距相同的简写
   - bandwidth() 每个频带的宽度
   - step() 相邻频带起始点的距离
-  - paddingInner() 内边距 paddingOuter() 外边距 padding() 内外边距相同的简写
+  
 
   ```
       let scaleB = this.d3
@@ -190,12 +191,13 @@
     console.log(scaleB.step()) // 22.22
   ```
 
-
-
 ## 坐标轴
-  ### 坐标轴api
-  - scaleTop(scale)
-  
+
+### 坐标轴 api
+
+- axisTop(scale) axisBottom axisLeft axisRight 分别 给定一个 向上 向下 向左向右的刻度生成器
+- axis(context) 将轴传给上下文 它可以是 svg 容器 也可以是相应的转换
+
 # svg 待定
 
 # canvas 待定

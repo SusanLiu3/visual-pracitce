@@ -1,15 +1,15 @@
 <template>
   <!-- 比例尺和坐标 -->
   <div class="scale-axis">
-    <axis></axis>
+    <test-axis></test-axis>
   </div>
 </template>
 <script>
-import axis from './axis.vue'
+import testAxis from './axis.vue';
 export default {
-  name:'scaleAxis',
+  name: 'scaleAxis',
   components: {
-    axis
+    testAxis,
   },
   mounted() {
     // 线性比例尺
@@ -100,8 +100,8 @@ export default {
     console.log(scaleB.step()); // 相邻频带起始点之间的距离
 
     scaleB.paddingOuter(0).paddingInner(0.5); // 内边距  step *.5
-    console.log(scaleB.bandwidth()) // 11.11
-    console.log(scaleB.step()) // 22.22
+    console.log(scaleB.bandwidth()); // 11.11
+    console.log(scaleB.step()); // 22.22
   },
 };
 </script>

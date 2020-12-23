@@ -174,7 +174,6 @@
   - paddingInner() 内边距 paddingOuter() 外边距 padding() 内外边距相同的简写
   - bandwidth() 每个频带的宽度
   - step() 相邻频带起始点的距离
-  
 
   ```
       let scaleB = this.d3
@@ -195,9 +194,77 @@
 
 ### 坐标轴 api
 
-- axisTop(scale) axisBottom axisLeft axisRight 分别 给定一个 向上 向下 向左向右的刻度生成器
+- axisTop(scale) axisBottom axisLeft axisRight 分别 给定一个 向上 向下 向左向右的刻度生成器 刻度大小是 6 填充是 3
 - axis(context) 将轴传给上下文 它可以是 svg 容器 也可以是相应的转换
+- tickValues([]) 设置或者获取坐标的指定刻度
+- tickSize() 设置或者获取刻度长度
+- tickSizeInner() 设置或获取坐标内部刻度的长度 ;内部刻度指非两端的刻度
+- tickSizeOuter() 设置或获取坐标外部刻度的长度;外部刻度指两端的刻度
+- ticks([count/interval],显示设置格式) 设置坐标的刻度数 或者 间隔 ;第二个参数需要显示设置格式
+- 画坐标轴三步走
+  1 定义比例尺
+  2 定义刻度生成器，并且把比例尺传给刻度生成器
+  3 定义 元素 g
+  4 g.call(axis)
 
+```
+ // 定义scale 比例尺
+    let scale = this.d3
+      .scaleBand()
+      .domain(['apple', 'orange', 'peer', 'banana'])
+      .range([0, 320]);
+    // 坐标 向上的刻度轴
+    let tAxis = this.d3.axisTop(scale);
+    // svg中添加g元素
+    let gtAxis = svg.append('g').attr('transform', 'translate(50,50)');
+    // 坐标轴给g 元素回调
+    gtAxis.call(tAxis);
+
+    let lAxis = this.d3.axisLeft(scale);
+    let glAxis=svg.append('g').attr('transform','translate(40,0)')
+    glAxis.call(lAxis)
+
+    let scaleR=this.d3.scaleLinear().domain([0,10]).range([0, 320])
+    let axisR=this.d3.axisRight(scaleR).tickValues([2,4,6,8]).tickSizeInner(3).tickSizeOuter(10)
+    let svgR=svg.append('g').attr('transform','translate(50,60)')
+    svgR.call(axisR)
+
+    let scaleB=this.d3.scaleLinear().domain([0,10]).range([0,320])
+    let axisB=this.d3.axisBottom(scaleB).ticks([2],'.1f')
+    let svgB=svg.append('g').attr('transform','translate(50,60)')
+    svgB.call(axisB)
+    console.log(axisR.tickValues(),'*****')
+```
+
+## 图形生成器
+
+### 颜色
+
+- d3.rgb() 创建颜色
+- d3.interpolate(color1,color2) 两个颜色直接的差值
+- color.hex() 返回十六进制颜色形式
+
+```
+    let a = this.d3.rgb('red');
+    let b = this.d3.rgb('green');
+    this.compute = this.d3.interpolate(a, b); // 两个颜色直接的差值
+    compute(0)
+    compute(0.5)
+    compute(1)
+    a.hex()
+```
+### line 线段生成器
+- d3.line() 创建折线生成器
+- line.x(x) 将x生成器设置为指定的函数或者数值
+- line.y(y) 将y生成器设置为指定的函数或者数值
+- line.curve() 差值模式
+- line.defined() 某个值是否存在在线段中
+- [demo](./d3/src/components/chartBuilder/line.vue)
+
+### 区域生成器
+- 基础api同线段生成器一样，相交线段生成器多了以下几个api 
+- line.x0(),line.y0(),line.x1(),line.y1()
+- [demo](./d3/src/components/chartBuilder/area.vue)
 # svg 待定
 
 # canvas 待定

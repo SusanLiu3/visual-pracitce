@@ -265,6 +265,13 @@
 - 基础api同线段生成器一样，相交线段生成器多了以下几个api 
 - line.x0(),line.y0(),line.x1(),line.y1()
 - [demo](./d3/src/components/chartBuilder/area.vue)
+### 弧形生成器
+- d3.arc() 创建弧形生成器 
+- arc.innerRadius(radius) 设置内部半径
+- arc.outerRadius(radius) 设置外部半径
+- arc.centroid(d) 弧中心坐标 包含横纵坐标数组 [x,y]
+- d3.pie(data) 可以将data转换成弧形会绘制的原始数据 [数据结构](<img src='./d3/img/pie.png'>)
+- d3.schemeCategory10 生成颜色
 # svg 待定
 
 # canvas 待定

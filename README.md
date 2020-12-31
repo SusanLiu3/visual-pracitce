@@ -132,7 +132,7 @@
 
 - 序数比例尺
 
-  ### scaleOrdinal
+  #### scaleOrdinal
 
   - 定义域 值域都是离散值 ，在求值域的时候，输入的值不在定义域内，则返回值域的第一个值
 
@@ -145,7 +145,7 @@
     console.log(scaleO('6')); // 水果 超过domain的数量按照第一个返回
   ```
 
-  ### scalePoint
+  #### scalePoint
 
   - [padding,range](<img rsc='./d3/img/point.png'/>)
   - [参考](https://observablehq.com/@d3/d3-scalepoint)
@@ -167,7 +167,7 @@
     console.log(scaleP('C')); // 100
   ```
 
-  ### scaleBand
+  #### scaleBand
 
   - ![padding(),paddingOuter(),paddingInner()](./d3/img/band.png)
   - padding() 内边距和外边距设置为相同边距值的简写 默认是 0
@@ -274,6 +274,86 @@
    ![数据结构](./d3/img/pie.png)
 - d3.schemeCategory10 生成颜色
 - [demo](./d3/src/components/chartBuilder/arc.vue)
+
+## 过渡
+- selection.transition([name]) 创建过渡 ,返回的是一个过渡对象
+- delay() 过渡延时时间
+- duration() 过渡持续时间
+- ease() 指定的元素选中过渡函数
+- attr(name,value) 将元素的指定属性过渡到目标值,value 可以是一个函数或者值
+- attrTween(name,[factory]) 将属性使用插值函数进行过渡
+- style(name,value) 将样式属性过渡到目标值
+- transition.select() selectAll() filter() 选中过渡对象 以及过滤过渡对象
+- transition.each(fun) 为每个过渡对象执行fun 函数
+- transition.call(fun) 当前过渡指定一次指定的函数
+```
+let svg = d3
+      .select('.transition')
+      .append('svg')
+      .attr('width', 600)
+      .attr('height', '40em');
+
+    let data = [
+      ['苹果', 2],
+      ['李子', 4],
+      ['香蕉', 10],
+      ['橘子', 8],
+    ];
+    // 画轴 : 定义比例尺   定义axis  定义轴容器
+    let scaleX = d3
+      .scaleBand()
+      .domain(['苹果', '李子', '香蕉', '橘子'])
+      .range([0, 550])
+      .paddingOuter(0.5)
+      .paddingInner(0.5);
+
+    let axisX = d3.axisBottom(scaleX);
+    let gX = svg
+      .append('g')
+      .attr('class', 'x-axis')
+      .attr('transform', 'translate(50,600)');
+    gX.call(axisX);
+
+    let scaleY = d3
+      .scaleLinear()
+      .domain([0, 10])
+      .range([550, 0]);
+    let axisY = d3.axisLeft(scaleY);
+    let gY = svg
+      .append('g')
+      .attr('class', 'y-axis')
+      .attr('transform', 'translate(50,50)');
+    gY.call(axisY);
+
+    let step = scaleX.step();
+    let inner = step * 0.5;
+
+    // 画柱子
+    svg
+      .selectAll('rect')
+      .data(data, (d) => d[1])
+      .enter()
+      .append('rect')
+      .attr(
+        'x',
+        (d, idx) => 50 + scaleX(d[0]) + 15
+      )
+      .attr('y', (d) => scaleY(d[1]) + 50 )
+      .attr('width', 30)
+      .attr('height', 100)
+      .attr('fill', 'red')
+      .attr('stroke-width', 1)
+      .transition()
+      .duration(3000)
+      .delay(200)
+      .ease(d3.easeLinear)
+      .attr('height', (d) => 550-scaleY(d[1]));
+```
+## 交互
+- 过渡对象没有监听对象，如果想监听对象 需要把监听对象写在过渡之前
+- selection('on',func)
+- 事件类型
+  - 鼠标事件
 # svg 待定
 
 # canvas 待定

@@ -23,6 +23,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "d3-fetch": "^2.0.0"
+    "d3-fetch": "^2.0.0",
+    "style-loader": "^2.0.0"
   }
 }

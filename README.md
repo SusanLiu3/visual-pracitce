@@ -439,8 +439,23 @@ let svg = d3
   ```
 ## 导入导出
   - 安装 d3-fetch
-  - d3 只能读取服务器上的文件，不能读取本地
+  - d3 只能取服务器上的文件，不能读取本地
   - .json ,.text ,.csv
-# svg 待定
+
 
 # canvas 待定
+[参考](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial)
+- 定义：canvas是可以使用脚本(javascript)绘图的元素，可以用来制作图片，图表，制作动画等；
+- 关于<canavs>标签: id 不是必选; 宽高默认是150 * 300 ; 也可以像应用在div上的其他样式应用在canvas上
+- 一些术语:
+  - 栅格：在使用canvas时，我们定义了canvas的宽和高，这就形成了500*600的坐标，左上角是起点(0,0)
+         canvas 默认被网格覆盖，每一个单元格 代表canvas元素中的一个像素。
+  - 渲染上下文：getContext('2d') 获取渲染上下文和绘图功能
+- 绘制
+  - 矩形
+  - 路径
+  - 笔触
+  - 线
+  - 弧
+
+# svg 待定

@@ -147,7 +147,7 @@
 
   #### scalePoint
 
-  - ![padding,range](https://github.com/SusanLiu93/visual-pracitce/blob/master/d3/img/ponit.png)
+  - ![padding,range](https://raw.githubusercontent.com/SusanLiu93/visual-pracitce/master/d3/img/ponit.png)
   - [参考](https://observablehq.com/@d3/d3-scalepoint)
 
   ```
@@ -169,7 +169,7 @@
 
   #### scaleBand
 
-  - ![padding(),paddingOuter(),paddingInner()](https://github.com/SusanLiu93/visual-pracitce/blob/master/d3/img/band.png)
+  - ![padding(),paddingOuter(),paddingInner()](https://raw.githubusercontent.com/SusanLiu93/visual-pracitce/master/d3/img/band.png)
   - padding() 内边距和外边距设置为相同边距值的简写 默认是 0
   - paddingInner() 内边距 paddingOuter() 外边距 padding() 内外边距相同的简写
   - bandwidth() 每个频带的宽度
@@ -271,7 +271,7 @@
 - arc.outerRadius(radius) 设置外部半径
 - arc.centroid(d) 弧中心坐标 包含横纵坐标数组 [x,y]
 - d3.pie(data) 可以将data转换成弧形会绘制的原始数据 
-   ![数据结构](https://github.com/SusanLiu93/visual-pracitce/blob/master/d3/img/pie.png)
+   ![数据结构](https://raw.githubusercontent.com/SusanLiu93/visual-pracitce/master/d3/img/pie.png)
 - d3.schemeCategory10 生成颜色
 - [demo](./d3/src/components/chartBuilder/arc.vue)
 

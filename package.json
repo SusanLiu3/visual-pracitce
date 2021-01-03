@@ -21,8 +21,8 @@
     "svg",
     "canvas"
   ],
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "d3-fetch": "^2.0.0"
   }
 }

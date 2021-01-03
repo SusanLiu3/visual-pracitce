@@ -147,7 +147,7 @@
 
   #### scalePoint
 
-  - [padding,range](<img rsc='./d3/img/point.png'/>)
+  - ![padding,range](/d3/img/point.png)
   - [参考](https://observablehq.com/@d3/d3-scalepoint)
 
   ```
@@ -169,7 +169,7 @@
 
   #### scaleBand
 
-  - ![padding(),paddingOuter(),paddingInner()](./d3/img/band.png)
+  - ![padding(),paddingOuter(),paddingInner()](/d3/img/band.png)
   - padding() 内边距和外边距设置为相同边距值的简写 默认是 0
   - paddingInner() 内边距 paddingOuter() 外边距 padding() 内外边距相同的简写
   - bandwidth() 每个频带的宽度
@@ -271,7 +271,7 @@
 - arc.outerRadius(radius) 设置外部半径
 - arc.centroid(d) 弧中心坐标 包含横纵坐标数组 [x,y]
 - d3.pie(data) 可以将data转换成弧形会绘制的原始数据 
-   ![数据结构](./d3/img/pie.png)
+   ![数据结构](/d3/img/pie.png)
 - d3.schemeCategory10 生成颜色
 - [demo](./d3/src/components/chartBuilder/arc.vue)
 
@@ -354,6 +354,93 @@ let svg = d3
 - selection('on',func)
 - 事件类型
   - 鼠标事件
+    - 代码
+     ```
+        rect.on('mouseover', function(d) {
+       // 不可以使用箭头函数
+        d3.select(this).transition()
+          .duration(500)
+          .attr('fill', 'yellow');
+      })
+      .on('mouseout',function(d) {
+         d3.select(this).transition()
+          .duration(500)
+          .attr('fill', 'green');
+      })
+     ```
+     - 事件类型
+       | 事件 | 说明 |
+       | :----: | :----:|
+       | click | 点击事件 |
+       | mouseover | 鼠标移动到目标上 |
+       | mousemove | 鼠标移动 |
+       | mouseout | 鼠标移出元素 |
+       | mousedown | 鼠标按下 |
+       | mouseup | 鼠标按下松开 |
+  - 按键事件
+    - 代码
+    ```
+     d3.select('body')
+    .on('keydown', function () {
+        rect.attr('fill', function (d) {
+            if(d === String.fromCharCode(event.keyCode)) {
+                return 'green'
+            }else {
+                 return 'red'
+             }
+        })
+    })
+    .on('keyup', function () {
+        rect.attr('fill', 'green')
+    })
+    ```
+    - 事件类型
+       | 事件 | 说明 |
+       | :----: | :----:|
+       | keydown | 按键按下 |
+       | keyup | 键盘松开 |
+       | keypress | 特殊按键 |
+  - 触摸事件
+       | 事件 | 说明 |
+       | :----: | :----:|
+       | touchstart | 接触屏幕 |
+       | touchmove | 在屏幕上移动 |
+       | touchend | 离开屏幕 |  
+       | touches(this) | 获取接触点的坐标 | 
+
+
+- 行为事件
+  - drag
+  - api
+    - d3.drag 创建一个拖拽交互
+    - drag() 将拖拽应用在元素上
+    - drag.on('事件',callback)
+      on('start') 拖拽开始 mousedown/touchstart
+      on('end') 拖拽结束 mouseup/touchend
+      on('drag')拖拽中 mousemove/touchmove
+  ```
+  let circle=svg
+      .append("circle")
+      .attr("cx", 200)
+      .attr("cy", 200)
+      .attr("r", 100)
+      .attr('stroke','black')
+      .attr('fill','#69a3b2')
+    let drag=d3.drag().on('start',function(d){
+        console.log('开始拖动')
+    }).on('end',function (d) {
+        console.log('结束拖动')
+    }).on('drag',function (d) {
+        d3.select(this).attr('cx',event.x)
+        .attr('cy',event.y)
+        console.log(event)
+    })
+    circle.call(drag)
+  ```
+## 导入导出
+  - 安装 d3-fetch
+  - d3 只能读取服务器上的文件，不能读取本地
+  - .json ,.text ,.csv
 # svg 待定
 
 # canvas 待定

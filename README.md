@@ -481,15 +481,46 @@ let svg = d3
     clearRect(x,y,width,height) 清除指定矩形区域，让清除部分完全透明
 
   ```
-    cxt.fillStyle = 'hsla(360, 100%, 80%, 1)';
-    cxt.fillRect(100, 100, 200, 200);
-
-    cxt.fillStyle = 'hsla(270,100%,40%,1)';
-    cxt.fillRect(200, 150, 50, 50);
+   // 兼容性处理
+      let cxt = canvas.getContext('2d'); // 上下文, 后面的画图都是拿这个对象来进行绘制的
+      cxt.fillStyle = 'hsla(360, 100%, 80%, 1)';
+      cxt.fillRect(100, 100, 200, 200);
+      
+      // 从坐标为120 * 120 处 擦除宽高分别为20px
+      cxt.clearRect(120,120,20,20)
+      // 描边
+      cxt.strokeStyle='hsla(170,60%,40%,1)'
+      cxt.lineWidth=4 // 设置宽度
+      cxt.strokeRect(200, 150, 50, 50);
   ```
 
   ## 路径
-
+    - 图形的基本元素是路径；路径是多个不同颜色和宽度的线段或者曲线相连形成的不同形状的点的集合
+    - 路径都是闭合的
+    - 绘制步骤
+      1. 创建路径起点
+      2. 借助画图命令去画路径
+      3. 把路径封闭
+      4. 一旦路径形成，可以通过填充或者描边来丰富路径
+    - api
+    | api | 说明 |
+    | :----: | :----: |
+    | beginPath() | 新建一条路径，图形绘图命令被指向到路径上 |
+    | closePath() | 闭合路径，图形绘图命令重新回到上下文中 |
+    | stroke() | 通过线条来绘制图形轮廓 |
+    | fill() | 通过填充路径的内容区域来生成实心图形 |
+    | moveTo(x,y) | 移动笔触,产生不连续的点 |
+    | lineTo(x,y) | 绘制一条从当前点 到x,y的线段 |
+    - demo
+    ```
+    cxt.beginPath()
+      cxt.moveTo(310,300)
+      cxt.lineTo(310,350)
+      cxt.lineTo(400,350)
+      cxt.strokeStyle='green'
+      cxt.fillStyle='hsl(160,20%,80%)'
+      cxt.fill()
+    ```
   ## 笔触
 
   ## 线

@@ -253,29 +253,35 @@
     compute(1)
     a.hex()
 ```
+
 ### line 线段生成器
+
 - d3.line() 创建折线生成器
-- line.x(x) 将x生成器设置为指定的函数或者数值
-- line.y(y) 将y生成器设置为指定的函数或者数值
+- line.x(x) 将 x 生成器设置为指定的函数或者数值
+- line.y(y) 将 y 生成器设置为指定的函数或者数值
 - line.curve() 差值模式
 - line.defined() 某个值是否存在在线段中
 - [demo](./d3/src/components/chartBuilder/line.vue)
 
 ### 区域生成器
-- 基础api同线段生成器一样，相交线段生成器多了以下几个api 
+
+- 基础 api 同线段生成器一样，相交线段生成器多了以下几个 api
 - line.x0(),line.y0(),line.x1(),line.y1()
 - [demo](./d3/src/components/chartBuilder/area.vue)
+
 ### 弧形生成器
-- d3.arc() 创建弧形生成器 
+
+- d3.arc() 创建弧形生成器
 - arc.innerRadius(radius) 设置内部半径
 - arc.outerRadius(radius) 设置外部半径
 - arc.centroid(d) 弧中心坐标 包含横纵坐标数组 [x,y]
-- d3.pie(data) 可以将data转换成弧形会绘制的原始数据 
-   ![数据结构](https://raw.githubusercontent.com/SusanLiu93/visual-pracitce/master/d3/img/pie.png)
+- d3.pie(data) 可以将 data 转换成弧形会绘制的原始数据
+  ![数据结构](https://raw.githubusercontent.com/SusanLiu93/visual-pracitce/master/d3/img/pie.png)
 - d3.schemeCategory10 生成颜色
 - [demo](./d3/src/components/chartBuilder/arc.vue)
 
 ## 过渡
+
 - selection.transition([name]) 创建过渡 ,返回的是一个过渡对象
 - delay() 过渡延时时间
 - duration() 过渡持续时间
@@ -284,8 +290,9 @@
 - attrTween(name,[factory]) 将属性使用插值函数进行过渡
 - style(name,value) 将样式属性过渡到目标值
 - transition.select() selectAll() filter() 选中过渡对象 以及过滤过渡对象
-- transition.each(fun) 为每个过渡对象执行fun 函数
+- transition.each(fun) 为每个过渡对象执行 fun 函数
 - transition.call(fun) 当前过渡指定一次指定的函数
+
 ```
 let svg = d3
       .select('.transition')
@@ -349,34 +356,37 @@ let svg = d3
       .ease(d3.easeLinear)
       .attr('height', (d) => 550-scaleY(d[1]));
 ```
+
 ## 交互
+
 - 过渡对象没有监听对象，如果想监听对象 需要把监听对象写在过渡之前
 - selection('on',func)
 - 事件类型
+
   - 鼠标事件
     - 代码
-     ```
-        rect.on('mouseover', function(d) {
-       // 不可以使用箭头函数
+    ```
+       rect.on('mouseover', function(d) {
+      // 不可以使用箭头函数
+       d3.select(this).transition()
+         .duration(500)
+         .attr('fill', 'yellow');
+     })
+     .on('mouseout',function(d) {
         d3.select(this).transition()
-          .duration(500)
-          .attr('fill', 'yellow');
-      })
-      .on('mouseout',function(d) {
-         d3.select(this).transition()
-          .duration(500)
-          .attr('fill', 'green');
-      })
-     ```
-     - 事件类型
-       | 事件 | 说明 |
-       | :----: | :----:|
-       | click | 点击事件 |
-       | mouseover | 鼠标移动到目标上 |
-       | mousemove | 鼠标移动 |
-       | mouseout | 鼠标移出元素 |
-       | mousedown | 鼠标按下 |
-       | mouseup | 鼠标按下松开 |
+         .duration(500)
+         .attr('fill', 'green');
+     })
+    ```
+    - 事件类型
+      | 事件 | 说明 |
+      | :----: | :----:|
+      | click | 点击事件 |
+      | mouseover | 鼠标移动到目标上 |
+      | mousemove | 鼠标移动 |
+      | mouseout | 鼠标移出元素 |
+      | mousedown | 鼠标按下 |
+      | mouseup | 鼠标按下松开 |
   - 按键事件
     - 代码
     ```
@@ -395,19 +405,18 @@ let svg = d3
     })
     ```
     - 事件类型
-       | 事件 | 说明 |
-       | :----: | :----:|
-       | keydown | 按键按下 |
-       | keyup | 键盘松开 |
-       | keypress | 特殊按键 |
+      | 事件 | 说明 |
+      | :----: | :----:|
+      | keydown | 按键按下 |
+      | keyup | 键盘松开 |
+      | keypress | 特殊按键 |
   - 触摸事件
-       | 事件 | 说明 |
-       | :----: | :----:|
-       | touchstart | 接触屏幕 |
-       | touchmove | 在屏幕上移动 |
-       | touchend | 离开屏幕 |  
-       | touches(this) | 获取接触点的坐标 | 
-
+    | 事件 | 说明 |
+    | :----: | :----:|
+    | touchstart | 接触屏幕 |
+    | touchmove | 在屏幕上移动 |
+    | touchend | 离开屏幕 |  
+     | touches(this) | 获取接触点的坐标 |
 
 - 行为事件
   - drag
@@ -437,25 +446,63 @@ let svg = d3
     })
     circle.call(drag)
   ```
-## 导入导出
-  - 安装 d3-fetch
-  - d3 只能取服务器上的文件，不能读取本地
-  - .json ,.text ,.csv
 
+## 导入导出
+
+- 安装 d3-fetch
+- d3 只能取服务器上的文件，不能读取本地
+- .json ,.text ,.csv
 
 # canvas 待定
+
 [参考](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial)
-- 定义：canvas是可以使用脚本(javascript)绘图的元素，可以用来制作图片，图表，制作动画等；
-- 关于<canavs>标签: id 不是必选; 宽高默认是150 * 300 ; 也可以像应用在div上的其他样式应用在canvas上
+
+- 定义：canvas 是可以使用脚本(javascript)绘图的元素，可以用来制作图片，图表，制作动画等；
+- 关于<canavs>标签: id 不是必选; 宽高默认是 150 \* 300 ; 也可以像应用在 div 上的其他样式应用在 canvas 上
 - 一些术语:
-  - 栅格：在使用canvas时，我们定义了canvas的宽和高，这就形成了500*600的坐标，左上角是起点(0,0)
-         canvas 默认被网格覆盖，每一个单元格 代表canvas元素中的一个像素。
+  - 栅格：在使用 canvas 时，我们定义了 canvas 的宽和高，这就形成了 500\*600 的坐标，左上角是起点(0,0)
+    canvas 默认被网格覆盖，每一个单元格 代表 canvas 元素中的一个像素。
   - 渲染上下文：getContext('2d') 获取渲染上下文和绘图功能
-- 绘制
-  - 矩形
-  - 路径
-  - 笔触
-  - 线
-  - 弧
+  ```
+   let canvas = document.getElementById('canvasWrap'); // canvas元素
+    if (canvas.getContext) {
+      // 兼容性处理
+      let cxt = canvas.getContext('2d'); // 上下文, 后面的画图都是拿这个对象来进行绘制的
+    } else {
+      // 针对不支持canvas的浏览器做的优雅降级
+    }
+  ```
+- 图形绘制
+  - canvas只支持两种形式的图形绘制：矩形和路径（由点连接成的线）
+
+  ## 矩形
+
+  - fillStyle 填充颜色, fillRect(x,y,width.height) 绘制一个填充矩形,strokeRect(x,y,width,height) 绘制一个矩形的边框
+    clearRect(x,y,width,height) 清除指定矩形区域，让清除部分完全透明
+
+  ```
+    cxt.fillStyle = 'hsla(360, 100%, 80%, 1)';
+    cxt.fillRect(100, 100, 200, 200);
+
+    cxt.fillStyle = 'hsla(270,100%,40%,1)';
+    cxt.fillRect(200, 150, 50, 50);
+  ```
+
+  ## 路径
+
+  ## 笔触
+
+  ## 线
+
+  ## 弧
 
 # svg 待定
+
+# antv (图表可视化插件) 待定
+# hsla()
+
+- h 代表色相,0-360 , 0 或者 360 代表红色，120 代表绿色 ，240 代表蓝色
+- s 饱和度 0% 完全变性(全灰度) ,100% 完全饱和(全色彩)
+- l 亮度 0% 黑色, 100% 白色 ,50% 平均亮度
+- a 透明度
+

@@ -473,19 +473,21 @@ let svg = d3
     }
   ```
 - 图形绘制
-  - canvas只支持两种形式的图形绘制：矩形和路径（由点连接成的线）
+
+  - canvas 只支持两种形式的图形绘制：矩形和路径（由点连接成的线）
 
   ## 矩形
 
   - fillStyle 填充颜色, fillRect(x,y,width.height) 绘制一个填充矩形,strokeRect(x,y,width,height) 绘制一个矩形的边框
     clearRect(x,y,width,height) 清除指定矩形区域，让清除部分完全透明
+  - rect(x,y,width,height) 额外的绘制矩形方法 
 
   ```
    // 兼容性处理
       let cxt = canvas.getContext('2d'); // 上下文, 后面的画图都是拿这个对象来进行绘制的
       cxt.fillStyle = 'hsla(360, 100%, 80%, 1)';
       cxt.fillRect(100, 100, 200, 200);
-      
+
       // 从坐标为120 * 120 处 擦除宽高分别为20px
       cxt.clearRect(120,120,20,20)
       // 描边
@@ -495,45 +497,174 @@ let svg = d3
   ```
 
   ## 路径
-    - 图形的基本元素是路径；路径是多个不同颜色和宽度的线段或者曲线相连形成的不同形状的点的集合
-    - 路径都是闭合的
-    - 绘制步骤
-      1. 创建路径起点
-      2. 借助画图命令去画路径
-      3. 把路径封闭
-      4. 一旦路径形成，可以通过填充或者描边来丰富路径
-    - api
+
+  - 图形的基本元素是路径；路径是多个不同颜色和宽度的线段或者曲线相连形成的不同形状的点的集合
+  - 路径都是闭合的
+  - 绘制步骤
+    1. 创建路径起点
+    2. 借助画图命令去画路径
+    3. 把路径封闭
+    4. 一旦路径形成，可以通过填充或者描边来丰富路径
+  - api
     | api | 说明 |
     | :----: | :----: |
     | beginPath() | 新建一条路径，图形绘图命令被指向到路径上 |
     | closePath() | 闭合路径，图形绘图命令重新回到上下文中 |
-    | stroke() | 通过线条来绘制图形轮廓 |
-    | fill() | 通过填充路径的内容区域来生成实心图形 |
-    | moveTo(x,y) | 移动笔触,产生不连续的点 |
-    | lineTo(x,y) | 绘制一条从当前点 到x,y的线段 |
-    - demo
-    ```
+    | stroke() | 通过线条来绘制图形轮廓,不会自动闭合路径，如果需要闭合路径，则需要调用 closePath() |
+    | fill() | 通过填充路径的内容区域来生成实心图形,会自动闭合路径 |
+  - demo
+
+  ```
+  // 填充三角形
     cxt.beginPath()
-      cxt.moveTo(310,300)
-      cxt.lineTo(310,350)
-      cxt.lineTo(400,350)
-      cxt.strokeStyle='green'
-      cxt.fillStyle='hsl(160,20%,80%)'
-      cxt.fill()
-    ```
+    cxt.moveTo(310,300)
+    cxt.lineTo(310,350)
+    cxt.lineTo(400,350)
+    cxt.strokeStyle='green'
+    cxt.fillStyle='hsl(160,20%,80%)'
+    cxt.fill()
+  // 描边三角形
+    cxt.beginPath()
+    cxt.moveTo(310,300)
+    cxt.lineTo(310,350)
+    cxt.lineTo(400,330)
+    cxt.lineWidth=8 // 设置宽度
+    cxt.fillStyle='hsl(160,20%,80%)'
+    cxt.closePath() // 非必须，
+    cxt.stroke()
+  ```
+
   ## 笔触
+
+  - moveTo() 移动笔触，移动到坐标为 x,y 的点，实际上不会画出任何东西，可以作为路径的起始点
 
   ## 线
 
+  - lineTo(x,y) 绘制一条从当前点 到 x,y 坐标点 的线
+
   ## 弧
 
+  - 绘制圆弧或者圆，使用 arc() 或者 arcTo() (不推荐,不够可靠)
+  - arc(x,y,radius,startAngle,endAngle,anticlockwise)
+    以坐标点 x,y 为圆心，绘制一个半径是 radius，从 startAngle 到 endAngle 的弧
+    anticlockwise：false 顺时针(默认) true 逆时针
+    弧度=(Math.PI/180)\*角度
+  - arcTo(x1,y1,x2,y2,radius)
+    根据给定的控制点和半径画一段圆弧，再以直线连接两个控制点
+  - demo
+
+    ```
+    // mdn 例子 四行三列
+     for (var i = 0; i < 4; i++) {
+       for (var j = 0; j < 3; j++) {
+         cxt.beginPath();
+         let x = 450 + j * 80;
+         let y = 450 + i * 80;
+         let radius = 20;
+         let startAngle = 0;
+         let endAngle = (Math.PI + (Math.PI * j)) / 2;
+         let clockwise = j % 2 === 0 ? false : true;
+         cxt.arc(x, y, radius, startAngle, endAngle, clockwise);
+
+         if (i>1){
+             cxt.fill() // 填充
+         }else{
+             cxt.stroke()
+         }
+       }
+     }
+    ```
+
+  ## 贝塞尔曲线
+
+  1. 二次贝塞尔曲线 quadraticCurveTo(控制点 x,控制点 y,结束点 x,结束点 y) [参考文档](https://zhuanlan.zhihu.com/p/83163681)
+
+  ```
+  cxt.beginPath();
+   cxt.moveTo(10,450)
+   cxt.quadraticCurveTo(120,480,100,600)
+   cxt.fill() // cxt.stroke()
+  ```
+
+  ```
+      cxt.beginPath();
+      cxt.moveTo(40,450)
+      cxt.quadraticCurveTo(35,470,40,600)
+      cxt.quadraticCurveTo(55,600,70,600)
+      cxt.quadraticCurveTo(75,610,55,625)
+       cxt.quadraticCurveTo(100,610,100,600)
+       cxt.quadraticCurveTo(150,605,180,600)
+       cxt.quadraticCurveTo(185,500,180,450)
+       cxt.closePath()
+       cxt.stroke()
+  ```
+
+  2. 三次贝塞尔曲线
+
+  ```
+  // 三次贝塞尔曲线
+      cxt.beginPath();
+      cxt.moveTo(150, 650);
+      cxt.bezierCurveTo(280, 620, 300, 750, 100, 850);
+      cxt.moveTo(150, 650);
+      cxt.bezierCurveTo(20, 620, 0, 750, 100, 850);
+      cxt.fill();
+  ```
+  ## Path2D
+    - 创建一个对象，路径的方法都可以用在上面
+    - 实例方法；路径里面的rect() arc() lineTo() moveTo() closePath(),addPath()等都可以使用
+    - 使用
+    ```
+     new Path2D()
+     new Path2D(path)
+     new Path2D(d)
+    ```
+    - demo1
+    ```
+    let cxt = canvas.getContext('2d');
+      let rect = new Path2D();
+      rect.rect(20, 20, 50, 50);
+      cxt.fillStyle='hsl(135,60%,20%)'
+      cxt.fill(rect);
+
+      let arc=new Path2D()
+      cxt.strokeStyle='hsl(0,80%,20%)'
+      arc.arc(100,40,20,Math.PI*.45,Math.PI*.9,true)
+      cxt.stroke(arc)
+
+      let line =new Path2D()
+      line.moveTo(200,20)
+      line.lineTo(250,40)
+      line.lineTo(300,20)
+      // line.closePath()
+      // cxt.stroke(line)
+       cxt.fill(line)
+    ```
+    - demo2
+    ```
+    /**
+       * xNew = a x + c y + e
+         yNew = b x + d y + f
+       */
+      var m = document
+        .createElementNS('http://www.w3.org/2000/svg', 'svg')
+        .createSVGMatrix();
+      m.a = 1;
+      m.b = 0;
+      m.c = 0;
+      m.d = 1;
+      m.e = 300;
+      m.f = 0;
+      rect.addPath(rect, m);
+      cxt.fill(rect);
+    ```
 # svg 待定
 
 # antv (图表可视化插件) 待定
+
 # hsla()
 
 - h 代表色相,0-360 , 0 或者 360 代表红色，120 代表绿色 ，240 代表蓝色
 - s 饱和度 0% 完全变性(全灰度) ,100% 完全饱和(全色彩)
 - l 亮度 0% 黑色, 100% 白色 ,50% 平均亮度
 - a 透明度
-

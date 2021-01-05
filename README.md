@@ -658,6 +658,31 @@ let svg = d3
       rect.addPath(rect, m);
       cxt.fill(rect);
     ```
+- 样式和颜色
+  在绘制图形的过程中，默认填充和描边都是黑色；
+  - fillStyle : 设置图形的颜色填充
+  - strokeStyle: 设置图形的描边颜色
+  - globalAlpha :设置图形的透明度，一般用于大量透明度一样的图形
+  ```
+  for (let i = 0; i < 6; i++) {
+        for (let j = 0; j < 6; j++) {
+          // 透明度 globalAlpha ,适用于绘制大量拥有相同透明度的图形；像单个图形的透明可以使用
+          // css规范的颜色值hsla() rgba()
+          cxt.globalAlpha = 0.8;
+          // fillStyle 填充颜色
+          cxt.fillStyle = `hsl(${360 - 60 * j},${100 - i * 20}%,${100 -
+            (j + 1) * 10}%)`;
+          cxt.fillRect(10 + j * 50, 10 + 50 * i, 50, 50);
+          // strokeStyle 描边颜色
+          cxt.beginPath();
+          cxt.strokeStyle = `hsl(${360 - 60 * j},${100 - (i + 1) * 10}%,${100 -
+            (j + 2) * 10}%)`;
+          cxt.arc(350 + j * 45, 40 + i * 45, 20, 0, Math.PI * 2, false);
+          cxt.stroke();
+        }
+      }
+  ```
+
 # svg 待定
 
 # antv (图表可视化插件) 待定

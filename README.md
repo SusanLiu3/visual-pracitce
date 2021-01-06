@@ -480,7 +480,7 @@ let svg = d3
 
   - fillStyle 填充颜色, fillRect(x,y,width.height) 绘制一个填充矩形,strokeRect(x,y,width,height) 绘制一个矩形的边框
     clearRect(x,y,width,height) 清除指定矩形区域，让清除部分完全透明
-  - rect(x,y,width,height) 额外的绘制矩形方法 
+  - rect(x,y,width,height) 额外的绘制矩形方法
 
   ```
    // 兼容性处理
@@ -610,61 +610,87 @@ let svg = d3
       cxt.bezierCurveTo(20, 620, 0, 750, 100, 850);
       cxt.fill();
   ```
+
   ## Path2D
-    - 创建一个对象，路径的方法都可以用在上面
-    - 实例方法；路径里面的rect() arc() lineTo() moveTo() closePath(),addPath()等都可以使用
-    - 使用
-    ```
-     new Path2D()
-     new Path2D(path)
-     new Path2D(d)
-    ```
-    - demo1
-    ```
-    let cxt = canvas.getContext('2d');
-      let rect = new Path2D();
-      rect.rect(20, 20, 50, 50);
-      cxt.fillStyle='hsl(135,60%,20%)'
-      cxt.fill(rect);
 
-      let arc=new Path2D()
-      cxt.strokeStyle='hsl(0,80%,20%)'
-      arc.arc(100,40,20,Math.PI*.45,Math.PI*.9,true)
-      cxt.stroke(arc)
+  - 创建一个对象，路径的方法都可以用在上面
+  - 实例方法；路径里面的 rect() arc() lineTo() moveTo() closePath(),addPath()等都可以使用
+  - 使用
 
-      let line =new Path2D()
-      line.moveTo(200,20)
-      line.lineTo(250,40)
-      line.lineTo(300,20)
-      // line.closePath()
-      // cxt.stroke(line)
-       cxt.fill(line)
-    ```
-    - demo2
-    ```
-    /**
-       * xNew = a x + c y + e
-         yNew = b x + d y + f
-       */
-      var m = document
-        .createElementNS('http://www.w3.org/2000/svg', 'svg')
-        .createSVGMatrix();
-      m.a = 1;
-      m.b = 0;
-      m.c = 0;
-      m.d = 1;
-      m.e = 300;
-      m.f = 0;
-      rect.addPath(rect, m);
-      cxt.fill(rect);
-    ```
+  ```
+   new Path2D()
+   new Path2D(path)
+   new Path2D(d)
+  ```
+
+  - demo1
+
+  ```
+  let cxt = canvas.getContext('2d');
+    let rect = new Path2D();
+    rect.rect(20, 20, 50, 50);
+    cxt.fillStyle='hsl(135,60%,20%)'
+    cxt.fill(rect);
+
+    let arc=new Path2D()
+    cxt.strokeStyle='hsl(0,80%,20%)'
+    arc.arc(100,40,20,Math.PI*.45,Math.PI*.9,true)
+    cxt.stroke(arc)
+
+    let line =new Path2D()
+    line.moveTo(200,20)
+    line.lineTo(250,40)
+    line.lineTo(300,20)
+    // line.closePath()
+    // cxt.stroke(line)
+     cxt.fill(line)
+  ```
+
+  - demo2
+
+  ```
+  /**
+     * xNew = a x + c y + e
+       yNew = b x + d y + f
+     */
+    var m = document
+      .createElementNS('http://www.w3.org/2000/svg', 'svg')
+      .createSVGMatrix();
+    m.a = 1;
+    m.b = 0;
+    m.c = 0;
+    m.d = 1;
+    m.e = 300;
+    m.f = 0;
+    rect.addPath(rect, m);
+    cxt.fill(rect);
+  ```
+
 - 样式和颜色
   在绘制图形的过程中，默认填充和描边都是黑色；
-  - fillStyle : 设置图形的颜色填充
-  - strokeStyle: 设置图形的描边颜色
-  - globalAlpha :设置图形的透明度，一般用于大量透明度一样的图形
-  ```
-  for (let i = 0; i < 6; i++) {
+  填充规则:  根据某处在路径的外面或者里面来决定该处是否被填充  nonzero 完全填充 ; evenodd 填充不相交的?  cxt.fill("evenodd");
+  | api | 说明 |
+  | :----:| :----: |
+  | fillStyle | 设置图形的填充颜色 |
+  | strokeStyle | 设置图形的描边颜色 |
+  | globalAlpha | 设置图形的透明度，一般用于大量透明度一样的图形 |
+  | lineWidth | 线宽:给定路径的中心到两边的距离，即路径的两边各绘制线宽的一半 |
+  | lineCap | 线段端点显示的样子,可选值 butt,round,square;默认值是ｂｕｔｔ　和水平对齐；round：端点处会多出一个以线宽一半的大小为半径的半圆图形；ｓｑｕａｒｅ　：端点处会多出一个等宽且高度为一半线宽的方块 |
+  | lineJoin | 线段连接点处的样式，可选值，metre（默认尖的，线段会在连接处外侧延伸直至交于一点），round（圆的），bevel（平的） |
+  | metreLimit | 斜接限定值,如果交点距离比这个值大，则 lineJoin 则是 bevel |
+  | setLineDash() | 设置线段虚线，参数是一个数组；第一个表示虚线的宽度，第二个表示虚线间隔距离 |
+  | lineDashOffset | 虚线偏移量 |
+  | createLinearGradient(x1,y1,x2,y2) | 创建沿着坐标点x1,y1 到x2,y2的线性渐变 |
+  | createRadialGradient(x1,y1,r1,x2,y2,r2) | 创建径向渐变，前三个参数表示圆点为x1,y1半径为r1的圆,后三个参数类似 |
+  | addColorStop(per,color) | 定义一个渐变颜色，per 表示渐变颜色占渐变区域的百分比，color为颜色样式 |
+  | createPattern(img,repeat) | 使用和渐变类似，第一个参数可以是一张图片或者一个canvas对象，第二个参数定义在哪个方向上重复或者不重复 repeat repeat-x repeat-y no-repeat |
+  | shadowOffsetX | 阴影在水平方向上的偏移距离 |
+  | shadowOffsetY | 阴影在垂直方向上的偏移距离 |
+  | shadowColor | 阴影的颜色,默认透明的黑色 |
+  | shadowBlur | 阴影的模糊程度 |
+     - [demo](./canvas/src/components/color.vue)
+     ```
+      for (let i = 0; i < 6; i++) {
         for (let j = 0; j < 6; j++) {
           // 透明度 globalAlpha ,适用于绘制大量拥有相同透明度的图形；像单个图形的透明可以使用
           // css规范的颜色值hsla() rgba()
@@ -681,14 +707,33 @@ let svg = d3
           cxt.stroke();
         }
       }
-  ```
+      ```
+      ```
+      // 虚线 setLineDash() 和 lineDashOffset
+      setInterval(() => {
+        this.drawDashLine(cxt);
+      }, 30);
+      drawDashLine(cxt) {
+      this.offset++;
+      if (this.offset > 10) {
+        this.offset = 0;
+      }
+      cxt.clearRect(9, 400, 600, 600);
+      cxt.setLineDash([4, 2]);
+      cxt.lineWidth = 1;
+      cxt.lineDashOffset = -this.offset;
+      cxt.strokeRect(10, 500, 100, 100);
+    },
+     ```
 
 # svg 待定
 
 # antv (图表可视化插件) 待定
 
-# hsla() 
+# hsla()
+
 [参考文档](https://css-tricks.com/yay-for-hsla/)
+
 - h 代表色相,0-360 , 0 或者 360 代表红色，120 代表绿色 ，240 代表蓝色
 - s 饱和度 0% 完全变性(全灰度) ,100% 完全饱和(全色彩)
 - l 亮度 0% 黑色, 100% 白色 ,50% 平均亮度

@@ -31,6 +31,7 @@
     "webpack-dev-server": "^3.11.0"
   },
   "dependencies": {
+    "@antv/g2": "^4.1.4",
     "@vue/babel-helper-vue-jsx-merge-props": "^1.2.1",
     "vue": "^2.6.12"
   }

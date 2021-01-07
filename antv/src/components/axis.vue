@@ -25,18 +25,23 @@ export default {
     });
     chart.scale('sales', {
       alias: '销售数量',
-      // ticks:[35,50,65,80,95,110,125,140,155],
-      tickCount: 5, // 刻度数
-      min: 40, // 刻度最小显示值
-      max: 140, // 刻度最大显示值
+       ticks:[35,50,65,80,95,110,125,140,155],
+      //tickCount: 5, // 刻度数
+     // min: 40, // 刻度最小显示值
+     // max: 140, // 刻度最大显示值
       formatter: (v) => `￥${v}`, // 标签formatter
-      tickInterval: 20, // 刻度间隔
+      //tickInterval: 20, // 刻度间隔
     });
     chart.axis('sales', {
       title: {
         color: 'red',
       },
     });
+    chart.legend('sales',false)
+    chart.legend('year',{
+      position: 'right',
+      layout:'horizontal'
+    })
     // chart.interval().position('year*sales'); // 柱子
     chart.line().position('year*sales'); // 线性图
     chart.render();

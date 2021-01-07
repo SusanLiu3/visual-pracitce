@@ -725,7 +725,17 @@ let svg = d3
       cxt.strokeRect(10, 500, 100, 100);
     },
      ```
-
+- 绘制文本
+  1. fillText(text,x,y,maxWidth?) 在指定位置填充文本，绘制的最大宽度是可选的；
+  2. strokeText(text,x,y,maxWidth?) 在指定位置绘制文本边框，绘制的最大宽度是可选的
+  3. measureText(text) 测量文本宽度 ,会返回一个 TextMetrics对象
+  4. font :设置文本的样式，和css中font用法一样，默认 10px sans-serif
+  5. textAlign: 文本对齐
+  6. textBaseLine:基线对齐
+  7. direction:文本方向 
+  [参考文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Drawing_text)
+- [图像处理](https://juejin.cn/post/6844904120374001678)
+   
 # svg 待定
 
 # antv (图表可视化插件) 待定

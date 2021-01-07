@@ -14,12 +14,16 @@ module.exports = {
     contentBase: './dist',
     hot: true,
   },
-  devtool:'cheap-module-eval-source-map',
+  devtool: 'cheap-module-eval-source-map',
   module: {
     rules: [
       {
         test: /\.(css|scss)$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use:'url-loader'
       },
       {
         test: /\.vue$/,

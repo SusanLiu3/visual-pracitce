@@ -20,7 +20,6 @@ export default {
         color,
         canvasText,
         canvasImg,
-        test
     }
 }
 </script>

@@ -734,8 +734,22 @@ let svg = d3
   6. textBaseLine:基线对齐
   7. direction:文本方向 
   [参考文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Drawing_text)
+
 - [图像处理](https://juejin.cn/post/6844904120374001678)
-   
+
+  | api | 说明 |
+  | :----: | :----: |
+  | drawImage(img,x,y,widt?,height?) | 在坐标点x,y 绘制宽高为width，height的img 对象 |
+  | drawImage(img,sx,sy,sWidth,sHeight,tx,ty,tWidth,tHeight) | 在源画布(sx,sy)处截取宽高分别为width，height的图像，在目标画布(tx,ty)处绘制宽高分别是tWidth,tHeight 处的图像 |
+  - 可以通过设置imageSmmothingEnabled 来控制是否在缩放图像时使用平滑算法，默认true
+  - [demo](./canvas/src/components/image.vue)
+  ```
+  ctx.mozImageSmoothingEnabled = false;
+  ctx.webkitImageSmoothingEnabled = false;
+  ctx.msImageSmoothingEnabled = false;
+  ctx.imageSmoothingEnabled = false;
+
+  ```
 # svg 待定
 
 # antv (图表可视化插件) 待定

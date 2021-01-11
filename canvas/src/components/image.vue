@@ -1,36 +1,41 @@
 <template>
   <div>
-    <canvas
-      id="imgWrap"
-      width="800"
-      height="800"
-      style="border:1px solid yellow"
-    >
-    </canvas>
+    <canvas id="imgWrap" width="800" height="800" style="border:1px solid yellow"></canvas>
     <!-- <button @click="modifyImg">修改底色</button> -->
   </div>
 </template>
 <script>
-import imgName from '../img/canvas.jpg';
+import imgName from "../img/canvas.jpg";
+import picImg from "../img/imgPic.jpg";
 export default {
   data() {
     return {
-      cxt: null,
+      cxt: null
     };
   },
   mounted() {
-    let canvas = document.getElementById('imgWrap');
+    let canvas = document.getElementById("imgWrap");
     if (canvas.getContext) {
-      this.cxt = canvas.getContext('2d');
+      this.cxt = canvas.getContext("2d");
       let img = new Image();
       img.src = imgName;
+      let picImgName = new Image();
+      picImgName.src = picImg;
       img.onload = () => {
         this.cxt.drawImage(img, 0, 0, 200, 200);
         // 平铺图像
         for (let i = 0; i < 4; i++) {
-          for (let j = 0; j < 3; j++) {}
+          for (let j = 0; j < 3; j++) {
+            this.cxt.drawImage(img, 200 + j * 50, i * 40, 50, 40);
+          }
         }
+      };
+      picImgName.onload = ()=> {
         // 切片图像
+        
+        this.cxt.drawImage(picImgName, 0, 300);
+        this.cxt.drawImage(img,80,100,180,200,90,360,320,230)
+        this.cxt.webkitImageSmoothingEnabled=false
       };
     }
   },
@@ -50,7 +55,7 @@ export default {
         // data[i + 2] = 255 - b;
       }
       this.cxt.putImageData(imgData, 0, 0);
-    },
-  },
+    }
+  }
 };
 </script>

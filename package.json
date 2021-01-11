@@ -21,7 +21,9 @@
     "svg",
     "canvas"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "url-loader": "^4.1.1"
+  },
   "devDependencies": {
     "d3-fetch": "^2.0.0",
     "style-loader": "^2.0.0"

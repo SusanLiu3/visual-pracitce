@@ -6,6 +6,7 @@
         <canvas-text></canvas-text>
         <canvas-img></canvas-img>
         <canvas-transform></canvas-transform>
+        <canvas-clip></canvas-clip>
     </div>
 </template>
 <script>
@@ -15,6 +16,7 @@ import color from './components/color.vue'
 import canvasText from './components/text.vue'
 import canvasImg from './components/image.vue'
 import canvasTransform from './components/transform.vue'
+import canvasClip from './components/clip.vue'
 export default {
     components:{
         canvasApi,
@@ -22,7 +24,8 @@ export default {
         color,
         canvasText,
         canvasImg,
-        canvasTransform
+        canvasTransform,
+        canvasClip
     }
 }
 </script>

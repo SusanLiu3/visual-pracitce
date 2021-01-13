@@ -843,6 +843,32 @@ let svg = d3
      - setTransform(a, b, c, d, e, f) 
      - resetTransform() 等价于setTransform(1,0,0,1,0,0)
   *[@_@] 每次做变形之前先调用save()保存画布的状态，这样调用restore时才可以恢复到上一次的状态
+- clip 裁剪
+  - clip() 设定裁剪区域，只有在裁剪区域内的图形才能显示
+  ```
+  cxt.beginPath();
+      cxt.fillStyle = 'hsl(0,50%,50%)';
+      cxt.arc(100, 100, 50, 0, Math.PI * 2);
+      cxt.fill();
+      cxt.beginPath();
+      cxt.lineWidth = 5;
+      cxt.strokeStyle = '#dedede';
+      cxt.arc(100, 100, 50, 0, Math.PI * 2);
+      cxt.stroke();
+      cxt.clip();
+      cxt.beginPath();
+      cxt.fillStyle = 'hsl(120,50%,50%)';
+      cxt.arc(150, 100, 50, 0, Math.PI * 2);
+      cxt.fill();
+
+      cxt.beginPath();
+      cxt.fillStyle = 'hsl(240,50%,50%)';
+      cxt.arc(100, 150, 50, 0, Math.PI * 2);
+      cxt.fill();
+
+  ```
+  - globalCompositeOperation 设置如何将目标图像放置在源图像上面
+    [参考文档](https://segmentfault.com/a/1190000016214908)
 # svg 待定 
 
 # antv (图表可视化插件) 待定

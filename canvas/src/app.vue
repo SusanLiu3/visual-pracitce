@@ -7,6 +7,8 @@
         <canvas-img></canvas-img>
         <canvas-transform></canvas-transform>
         <canvas-clip></canvas-clip>
+        <canvas-animate></canvas-animate>
+        <canvas-clock></canvas-clock>
     </div>
 </template>
 <script>
@@ -17,6 +19,8 @@ import canvasText from './components/text.vue'
 import canvasImg from './components/image.vue'
 import canvasTransform from './components/transform.vue'
 import canvasClip from './components/clip.vue'
+import canvasAnimate from './components/animation.vue'
+import canvasClock from './components/clock.vue'
 export default {
     components:{
         canvasApi,
@@ -25,7 +29,9 @@ export default {
         canvasText,
         canvasImg,
         canvasTransform,
-        canvasClip
+        canvasClip,
+        canvasAnimate,
+        canvasClock
     }
 }
 </script>

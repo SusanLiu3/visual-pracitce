@@ -869,6 +869,7 @@ let svg = d3
   ```
   - globalCompositeOperation 设置如何将目标图像放置在源图像上面
     [参考文档](https://segmentfault.com/a/1190000016214908)
+- 动画
 # svg 待定 
 
 # antv (图表可视化插件) 待定
@@ -881,3 +882,13 @@ let svg = d3
 - s 饱和度 0% 完全变性(全灰度) ,100% 完全饱和(全色彩)
 - l 亮度 0% 黑色, 100% 白色 ,50% 平均亮度
 - a 透明度
+
+# Blob 对象
+  [参考文档](https://github.com/akira-cn/FE_You_dont_know/issues/12)
+```
+ let test = 'console.log("hello world")';
+    let blob = new Blob([test], { type: 'text/javascript' });
+    let script =document.createElement('script')
+    document.getElementById('test').append(script)
+    script.src=URL.createObjectURL(blob)
+```

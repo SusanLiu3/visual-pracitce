@@ -36,6 +36,7 @@ export default {
       }
 
       // rotate(angle) 以原点为中心旋转canvas
+      
     }
   }
 };

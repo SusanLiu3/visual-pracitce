@@ -870,6 +870,40 @@ let svg = d3
   - globalCompositeOperation 设置如何将目标图像放置在源图像上面
     [参考文档](https://segmentfault.com/a/1190000016214908)
 - 动画
+  ```
+  let time = new Date();
+      this.cxt.rotate(
+        ((2 * Math.PI) / 60) * time.getSeconds() +
+          ((2 * Math.PI) / 60000) * time.getMilliseconds()
+      );
+      this.cxt.translate(105, 0);
+      this.cxt.drawImage(this.earthImg, 0, 0);
+
+   
+      this.cxt.rotate(
+        ((2 * Math.PI) / 6) * time.getSeconds() +
+          ((2 * Math.PI) / 6000) * time.getMilliseconds()
+      );
+      this.cxt.translate(0, 38);
+      this.cxt.drawImage(this.moonImg,0,0);
+  
+
+      // 太阳系
+      this.cxt.restore();
+     
+      this.cxt.beginPath();
+      this.cxt.arc(200, 200, 100, 0, Math.PI * 2);
+      this.cxt.stroke();
+       this.cxt.drawImage(
+        this.sunImg,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+      );
+      this.cxt.restore();
+      window.requestAnimationFrame(this.draw);
+  ```
 # svg 待定 
 
 # antv (图表可视化插件) 待定

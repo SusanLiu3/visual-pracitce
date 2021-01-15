@@ -668,7 +668,7 @@ let svg = d3
 
 - 样式和颜色
   在绘制图形的过程中，默认填充和描边都是黑色；
-  填充规则:  根据某处在路径的外面或者里面来决定该处是否被填充  nonzero 完全填充 ; evenodd 填充不相交的?  cxt.fill("evenodd");
+  填充规则: 根据某处在路径的外面或者里面来决定该处是否被填充 nonzero 完全填充 ; evenodd 填充不相交的? cxt.fill("evenodd");
   | api | 说明 |
   | :----:| :----: |
   | fillStyle | 设置图形的填充颜色 |
@@ -680,69 +680,108 @@ let svg = d3
   | metreLimit | 斜接限定值,如果交点距离比这个值大，则 lineJoin 则是 bevel |
   | setLineDash() | 设置线段虚线，参数是一个数组；第一个表示虚线的宽度，第二个表示虚线间隔距离 |
   | lineDashOffset | 虚线偏移量 |
-  | createLinearGradient(x1,y1,x2,y2) | 创建沿着坐标点x1,y1 到x2,y2的线性渐变 |
-  | createRadialGradient(x1,y1,r1,x2,y2,r2) | 创建径向渐变，前三个参数表示圆点为x1,y1半径为r1的圆,后三个参数类似 |
-  | addColorStop(per,color) | 定义一个渐变颜色，per 表示渐变颜色占渐变区域的百分比，color为颜色样式 |
-  | createPattern(img,repeat) | 使用和渐变类似，第一个参数可以是一张图片或者一个canvas对象，第二个参数定义在哪个方向上重复或者不重复 repeat repeat-x repeat-y no-repeat |
+  | createLinearGradient(x1,y1,x2,y2) | 创建沿着坐标点 x1,y1 到 x2,y2 的线性渐变 |
+  | createRadialGradient(x1,y1,r1,x2,y2,r2) | 创建径向渐变，前三个参数表示圆点为 x1,y1 半径为 r1 的圆,后三个参数类似 |
+  | addColorStop(per,color) | 定义一个渐变颜色，per 表示渐变颜色占渐变区域的百分比，color 为颜色样式 |
+  | createPattern(img,repeat) | 使用和渐变类似，第一个参数可以是一张图片或者一个 canvas 对象，第二个参数定义在哪个方向上重复或者不重复 repeat repeat-x repeat-y no-repeat |
   | shadowOffsetX | 阴影在水平方向上的偏移距离 |
   | shadowOffsetY | 阴影在垂直方向上的偏移距离 |
   | shadowColor | 阴影的颜色,默认透明的黑色 |
   | shadowBlur | 阴影的模糊程度 |
-     - [demo](./canvas/src/components/color.vue)
-     ```
-      for (let i = 0; i < 6; i++) {
-        for (let j = 0; j < 6; j++) {
-          // 透明度 globalAlpha ,适用于绘制大量拥有相同透明度的图形；像单个图形的透明可以使用
-          // css规范的颜色值hsla() rgba()
-          cxt.globalAlpha = 0.8;
-          // fillStyle 填充颜色
-          cxt.fillStyle = `hsl(${360 - 60 * j},${100 - i * 20}%,${100 -
-            (j + 1) * 10}%)`;
-          cxt.fillRect(10 + j * 50, 10 + 50 * i, 50, 50);
-          // strokeStyle 描边颜色
-          cxt.beginPath();
-          cxt.strokeStyle = `hsl(${360 - 60 * j},${100 - (i + 1) * 10}%,${100 -
-            (j + 2) * 10}%)`;
-          cxt.arc(350 + j * 45, 40 + i * 45, 20, 0, Math.PI * 2, false);
-          cxt.stroke();
-        }
-      }
-      ```
-      ```
-      // 虚线 setLineDash() 和 lineDashOffset
-      setInterval(() => {
-        this.drawDashLine(cxt);
-      }, 30);
-      drawDashLine(cxt) {
-      this.offset++;
-      if (this.offset > 10) {
-        this.offset = 0;
-      }
-      cxt.clearRect(9, 400, 600, 600);
-      cxt.setLineDash([4, 2]);
-      cxt.lineWidth = 1;
-      cxt.lineDashOffset = -this.offset;
-      cxt.strokeRect(10, 500, 100, 100);
-    },
-     ```
+  - [demo](./canvas/src/components/color.vue)
+  ````
+   for (let i = 0; i < 6; i++) {
+     for (let j = 0; j < 6; j++) {
+       // 透明度 globalAlpha ,适用于绘制大量拥有相同透明度的图形；像单个图形的透明可以使用
+       // css规范的颜色值hsla() rgba()
+       cxt.globalAlpha = 0.8;
+       // fillStyle 填充颜色
+       cxt.fillStyle = `hsl(${360 - 60 * j},${100 - i * 20}%,${100 -
+         (j + 1) * 10}%)`;
+       cxt.fillRect(10 + j * 50, 10 + 50 * i, 50, 50);
+       // strokeStyle 描边颜色
+       cxt.beginPath();
+       cxt.strokeStyle = `hsl(${360 - 60 * j},${100 - (i + 1) * 10}%,${100 -
+         (j + 2) * 10}%)`;
+       cxt.arc(350 + j * 45, 40 + i * 45, 20, 0, Math.PI * 2, false);
+       cxt.stroke();
+     }
+   }
+   ```
+   ```
+   // 虚线 setLineDash() 和 lineDashOffset
+   setInterval(() => {
+     this.drawDashLine(cxt);
+   }, 30);
+   drawDashLine(cxt) {
+   this.offset++;
+   if (this.offset > 10) {
+     this.offset = 0;
+   }
+   cxt.clearRect(9, 400, 600, 600);
+   cxt.setLineDash([4, 2]);
+   cxt.lineWidth = 1;
+   cxt.lineDashOffset = -this.offset;
+   cxt.strokeRect(10, 500, 100, 100);
+  },
+  ````
 - 绘制文本
+
   1. fillText(text,x,y,maxWidth?) 在指定位置填充文本，绘制的最大宽度是可选的；
   2. strokeText(text,x,y,maxWidth?) 在指定位置绘制文本边框，绘制的最大宽度是可选的
-  3. measureText(text) 测量文本宽度 ,会返回一个 TextMetrics对象
-  4. font :设置文本的样式，和css中font用法一样，默认 10px sans-serif
+  3. measureText(text) 测量文本宽度 ,会返回一个 TextMetrics 对象
+  4. font :设置文本的样式，和 css 中 font 用法一样，默认 10px sans-serif
   5. textAlign: 文本对齐
   6. textBaseLine:基线对齐
-  7. direction:文本方向 
-  [参考文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Drawing_text)
+  7. direction:文本方向
+     [参考文档](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Drawing_text)
+
+  ```
+   let cxt = canvas.getContext('2d');
+      cxt.font = "48px serif";
+      cxt.fillStyle='hsl(0,35%,45%)'
+      cxt.strokeStyle='hsl(100,35%,45%)'
+      // cxt.textAlign='center'
+      // cxt.textBaseLine='bottom'
+      cxt.fillText('canvas text', 30, 30);
+      cxt.fillText('canvas text', 300, 30,60);
+      cxt.strokeText('canvas text stroke',60,60)
+      console.log(cxt.measureText('canvas text').width)
+  ```
 
 - [图像处理](https://juejin.cn/post/6844904120374001678)
 
-  | api | 说明 |
-  | :----: | :----: |
-  | drawImage(img,x,y,widt?,height?) | 在坐标点x,y 绘制宽高为width，height的img 对象 |
-  | drawImage(img,sx,sy,sWidth,sHeight,tx,ty,tWidth,tHeight) | 在源画布(sx,sy)处截取宽高分别为width，height的图像，在目标画布(tx,ty)处绘制宽高分别是tWidth,tHeight 处的图像 |
-  - 可以通过设置imageSmmothingEnabled 来控制是否在缩放图像时使用平滑算法，默认true
+  |                           api                            |                                                      说明                                                       |
+  | :------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------: |
+  |             drawImage(img,x,y,widt?,height?)             |                                在坐标点 x,y 绘制宽高为 width，height 的 img 对象                                |
+  | drawImage(img,sx,sy,sWidth,sHeight,tx,ty,tWidth,tHeight) | 在源画布(sx,sy)处截取宽高分别为 width，height 的图像，在目标画布(tx,ty)处绘制宽高分别是 tWidth,tHeight 处的图像 |
+
+  - 可以通过设置 imageSmmothingEnabled 来控制是否在缩放图像时使用平滑算法，默认 true
   - [demo](./canvas/src/components/image.vue)
+
+  ```
+   let img = new Image();
+      img.src = imgName;
+      let picImgName = new Image();
+      picImgName.src = picImg;
+      img.onload = () => {
+        this.cxt.drawImage(img, 0, 0, 200, 200);
+        // 平铺图像
+        for (let i = 0; i < 4; i++) {
+          for (let j = 0; j < 3; j++) {
+            this.cxt.drawImage(img, 200 + j * 50, i * 40, 50, 40);
+          }
+        }
+      };
+      picImgName.onload = ()=> {
+        // 切片图像
+
+        this.cxt.drawImage(picImgName, 0, 300);
+        this.cxt.drawImage(img,80,100,180,200,90,360,320,230)
+        this.cxt.webkitImageSmoothingEnabled=false
+      };
+  ```
+
   ```
   ctx.mozImageSmoothingEnabled = false;
   ctx.webkitImageSmoothingEnabled = false;
@@ -750,7 +789,122 @@ let svg = d3
   ctx.imageSmoothingEnabled = false;
 
   ```
-# svg 待定
+
+- 变形
+  1. save() 保存画布的状态，无参数;
+  2. restore() 将画布状态恢复到上一次，每次调用restore，上一次的画布状态从栈中弹出;
+  3. translate(x,y) 移动画布的圆点到x,y处；
+  ```
+   for (let i = 0; i <= 3; i++) {
+        for (let j = 0; j <= 3; j++) {
+          cxt.save();
+          cxt.translate(140 + j * 30, 0 + i * 30); // 移动canvas的原点
+          cxt.fillStyle = `hsl(${300 - (j + 1) * 60} ,${100 -
+            (i + 1) * 20}%,${100 - (j + 1) * 20}%)`;
+          cxt.fillRect(0, 0, 30, 30);
+          cxt.restore();
+        }
+      }
+  ```
+  4. rotate(angle) 旋转的角度,以弧度为单位的值， 以圆点为中心顺时针旋转画布
+  ```
+   cxt.translate(0, 200);
+      for (let i = 1; i < 6; i++) {
+        cxt.save();
+        cxt.fillStyle = `hsl(${240 - 40 * i},${100 - 15 * i}%,${100 -
+          15 * i}%)`;
+        for (let j = 0; j < i * 6; j++) {
+          cxt.rotate((Math.PI * 2) / (i * 6));
+          cxt.beginPath();
+          cxt.arc(0, i * 15, 5, 0, Math.PI * 2);
+          cxt.fill();
+        }
+        cxt.restore();
+      }
+  ```
+  5. scale(x,y) x,y分别是水平和垂直方向的缩放因子，可以为负数，如果为负数表示以x或者y作为对称轴旋转，然后再缩放
+  ```
+  cxt.translate(0, 300);
+      cxt.save();
+      cxt.scale(-5, 5);
+      cxt.font = '12px serif';
+      cxt.fillText('test scale', 0, 0);
+      cxt.restore();
+      cxt.scale(10, 2);
+      cxt.fillRect(0, 0, 20, 20);
+  ```
+  6. transform(a,b,c,d,e,f) 变形 
+     - a(m11) 水平方向的缩放
+     - b(m12) 竖直方向的倾斜偏移
+     - c(m21) 水平方向的倾斜偏移
+     - d(m22) 竖直方向的缩放
+     - e(dx) 水平方向的移动
+     - f(dy) 竖直方向的移动
+     - setTransform(a, b, c, d, e, f) 
+     - resetTransform() 等价于setTransform(1,0,0,1,0,0)
+  *[@_@] 每次做变形之前先调用save()保存画布的状态，这样调用restore时才可以恢复到上一次的状态
+- clip 裁剪
+  - clip() 设定裁剪区域，只有在裁剪区域内的图形才能显示
+  ```
+  cxt.beginPath();
+      cxt.fillStyle = 'hsl(0,50%,50%)';
+      cxt.arc(100, 100, 50, 0, Math.PI * 2);
+      cxt.fill();
+      cxt.beginPath();
+      cxt.lineWidth = 5;
+      cxt.strokeStyle = '#dedede';
+      cxt.arc(100, 100, 50, 0, Math.PI * 2);
+      cxt.stroke();
+      cxt.clip();
+      cxt.beginPath();
+      cxt.fillStyle = 'hsl(120,50%,50%)';
+      cxt.arc(150, 100, 50, 0, Math.PI * 2);
+      cxt.fill();
+
+      cxt.beginPath();
+      cxt.fillStyle = 'hsl(240,50%,50%)';
+      cxt.arc(100, 150, 50, 0, Math.PI * 2);
+      cxt.fill();
+
+  ```
+  - globalCompositeOperation 设置如何将目标图像放置在源图像上面
+    [参考文档](https://segmentfault.com/a/1190000016214908)
+- 动画
+  ```
+  let time = new Date();
+      this.cxt.rotate(
+        ((2 * Math.PI) / 60) * time.getSeconds() +
+          ((2 * Math.PI) / 60000) * time.getMilliseconds()
+      );
+      this.cxt.translate(105, 0);
+      this.cxt.drawImage(this.earthImg, 0, 0);
+
+   
+      this.cxt.rotate(
+        ((2 * Math.PI) / 6) * time.getSeconds() +
+          ((2 * Math.PI) / 6000) * time.getMilliseconds()
+      );
+      this.cxt.translate(0, 38);
+      this.cxt.drawImage(this.moonImg,0,0);
+  
+
+      // 太阳系
+      this.cxt.restore();
+     
+      this.cxt.beginPath();
+      this.cxt.arc(200, 200, 100, 0, Math.PI * 2);
+      this.cxt.stroke();
+       this.cxt.drawImage(
+        this.sunImg,
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+      );
+      this.cxt.restore();
+      window.requestAnimationFrame(this.draw);
+  ```
+# svg 待定 
 
 # antv (图表可视化插件) 待定
 
@@ -762,3 +916,13 @@ let svg = d3
 - s 饱和度 0% 完全变性(全灰度) ,100% 完全饱和(全色彩)
 - l 亮度 0% 黑色, 100% 白色 ,50% 平均亮度
 - a 透明度
+
+# Blob 对象
+  [参考文档](https://github.com/akira-cn/FE_You_dont_know/issues/12)
+```
+ let test = 'console.log("hello world")';
+    let blob = new Blob([test], { type: 'text/javascript' });
+    let script =document.createElement('script')
+    document.getElementById('test').append(script)
+    script.src=URL.createObjectURL(blob)
+```

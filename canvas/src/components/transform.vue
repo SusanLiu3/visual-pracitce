@@ -71,6 +71,7 @@ export default {
       cxt.strokeStyle = 'hsl(120,40%,40%)';
       cxt.transform(2, Math.PI / 6, -Math.PI / 6, 1, 10, 10);
       cxt.strokeRect(0, 0, 60, 15);
+      
     }
   },
 };

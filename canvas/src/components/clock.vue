@@ -1,6 +1,6 @@
 <template>
   <div id="test">
-    <canvas id="clockWrap" width="500" height="800" style="border:1px solid #f45"></canvas>
+    <canvas id="clockWrap" width="500" height="200" style="border:1px solid #f45"></canvas>
   </div>
 </template>
 <script>
@@ -52,7 +52,7 @@ export default {
       this.cxt.restore();
     },
     run() {
-      this.cxt.clearRect(-75, -75, 500, 800);
+      this.cxt.clearRect(-75, -75, 500,200);
       this.drawHoursLine();
       this.drawMinutesLine();
       this.cxt.save();

@@ -52,7 +52,7 @@ export default {
       this.cxt.restore();
     },
     run() {
-      this.cxt.clearRect(0, 0, 500, 800);
+      this.cxt.clearRect(-75, -75, 500, 800);
       this.drawHoursLine();
       this.drawMinutesLine();
       this.cxt.save();

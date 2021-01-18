@@ -15,17 +15,63 @@ export default {
       container: 'graphicWrap',
       width: 400,
       height: 200,
+      theme:{
+        styleSheet:{
+          backgroundColor:'#f45'
+        }
+      }
     });
+
     chart.scale('temperature', {
       nice: true,
     });
+
+    chart.axis('temperature', {
+      title: {
+        style: {
+          fill: '#f45',
+          shadowColor: 'hsla(360,100%,0%,.6)',
+          shadowBlur: 4,
+          shadowOffsetX: 2,
+        },
+      },
+      position: 'left',
+      line: {
+        style: {
+          stroke: 'green',
+        },
+      },
+      tickLine: {
+        length: 8,
+        style: {
+          stroke: 'green',
+        },
+      },
+      label: {
+        style: {
+          fill: 'pink',
+          autoEllipsis: true,
+        },
+      },
+      grid: {
+        line: {
+          type: 'circle',
+          style: {
+            stroke: 'yellow',
+          },
+        },
+        alternateColor: 'hsla(0,50%,80%,.2)',
+      },
+    });
+
     chart.source(data);
     chart
       .point()
       .position('month*temperature')
       .color('city', ['red', 'blue', 'yellow'])
       .shape('city', ['triangle', 'diamond'])
-      .size('city', [10, 20]);
+      .size('city', [10, 20])
+      .adjust([{ type: 'dodge' }]);
     chart.legend({
       title: {
         strokeStyle: '#f45',

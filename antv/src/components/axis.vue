@@ -3,6 +3,7 @@
 </template>
 <script>
 import Slider from '@antv/g2/lib/chart/controller/slider';
+import ScrollBar from '@antv/g2/lib/chart/controller/scrollbar';
 import { registerComponentController } from '@antv/g2/lib/core';
 export default {
   mounted() {
@@ -13,17 +14,22 @@ export default {
       { year: '1957 年', sales: 145 },
       { year: '1958 年', sales: 48 },
       { year: '1959 年', sales: 38 },
-      { year: '1960 年', sales: 38 },
-      { year: '1962 年', sales: 38 },
+      { year: '1960 年', sales: 40 },
+      { year: '1962 年', sales: 58 },
+      { year: '1963 年', sales: 68 },
+      { year: '1964 年', sales: 78 },
+      { year: '1968 年', sales: 88 },
     ];
     let chart = new this.Chart({
       container: 'axisWrap',
       width: 500,
       height: 500,
+
     });
     chart.data(data); // 填充数据
     chart.scale('year', {
-      range: [0.1, 0.9],
+      // range: [0.1, 0.9],
+      // tickInterval:10,
     });
     chart.scale('sales', {
       alias: '销售数量',
@@ -60,21 +66,28 @@ export default {
     chart.on('tooltip:change', (ev) => {
       let { item, x, y } = ev.data;
     });
-    registerComponentController('slider', Slider);
-    chart.option('slider', {
-      start:.4,
-      end: 0.8,
-      backgroundStyle:{
-        fill:'#f45',
-        stroke:'#000'
-      },
-      foregroundStyle:{
-        fill:'yellow',
-        stroke:'green'
-      },
-      handlerStyle:{
-        fill:'green'
-      },
+    // registerComponentController('slider', Slider);
+    // chart.option('slider', {
+    //   start: 0.4,
+    //   end: 0.8,
+    //   backgroundStyle: {
+    //     fill: '#f45',
+    //     stroke: '#000',
+    //   },
+    //   foregroundStyle: {
+    //     fill: 'yellow',
+    //     stroke: 'green',
+    //   },
+    //   handlerStyle: {
+    //     fill: 'green',
+    //   },
+    // });
+
+    registerComponentController('scrollbar', ScrollBar);
+    chart.option('scrollbar', {
+      type: 'horizontal',
+      categorySize:40,
+      // width:300
     });
 
     // chart.annotation().text({
@@ -88,17 +101,18 @@ export default {
     //   // offsetY:40
     // })
 
-    chart.annotation().regionFilter({
-      top: true,
-      start: ['min', 'max'],
-      end: ['max', 0],
-      color: '#FF4D4F',
-    });
+    // chart.annotation().regionFilter({
+    //   top: true,
+    //   start: ['min', 'max'],
+    //   end: ['max', 0],
+    //   color: '#FF4D4F',
+    // });
 
     chart
       .interval()
       .position('year*sales')
-      .color('year',['yellow','blue'])
+      .color('year', ['yellow', 'blue'])
+      .size(2)
       .label('sales', (value) => {
         return {
           type: 'interval',

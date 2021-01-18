@@ -25,6 +25,8 @@
     "url-loader": "^4.1.1"
   },
   "devDependencies": {
+    "@antv/l7": "^2.3.7",
+    "@antv/l7-maps": "^2.3.7",
     "d3-fetch": "^2.0.0",
     "style-loader": "^2.0.0"
   }

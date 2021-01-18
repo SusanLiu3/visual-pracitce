@@ -98,6 +98,7 @@ export default {
     chart
       .interval()
       .position('year*sales')
+      .color('year',['yellow','blue'])
       .label('sales', (value) => {
         return {
           type: 'interval',

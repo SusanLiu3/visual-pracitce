@@ -11,6 +11,7 @@
         <canvas-clock></canvas-clock>
         <img-animate></img-animate>
         <senior-animate></senior-animate>
+        <image-data></image-data>
     </div>
 </template>
 <script>
@@ -25,6 +26,7 @@ import canvasAnimate from './components/animation.vue'
 import canvasClock from './components/clock.vue'
 import imgAnimate from './components/imgAnimate.vue'
 import seniorAnimate from './components/seniorAnimate.vue'
+import imageData from './components/imageData.vue'
 export default {
     components:{
         canvasApi,
@@ -37,7 +39,8 @@ export default {
         canvasAnimate,
         canvasClock,
         imgAnimate,
-        seniorAnimate
+        seniorAnimate,
+        imageData
     }
 }
 </script>

@@ -792,8 +792,8 @@ let svg = d3
 
 - 变形
   1. save() 保存画布的状态，无参数;
-  2. restore() 将画布状态恢复到上一次，每次调用restore，上一次的画布状态从栈中弹出;
-  3. translate(x,y) 移动画布的圆点到x,y处；
+  2. restore() 将画布状态恢复到上一次，每次调用 restore，上一次的画布状态从栈中弹出;
+  3. translate(x,y) 移动画布的圆点到 x,y 处；
   ```
    for (let i = 0; i <= 3; i++) {
         for (let j = 0; j <= 3; j++) {
@@ -822,7 +822,7 @@ let svg = d3
         cxt.restore();
       }
   ```
-  5. scale(x,y) x,y分别是水平和垂直方向的缩放因子，可以为负数，如果为负数表示以x或者y作为对称轴旋转，然后再缩放
+  5. scale(x,y) x,y 分别是水平和垂直方向的缩放因子，可以为负数，如果为负数表示以 x 或者 y 作为对称轴旋转，然后再缩放
   ```
   cxt.translate(0, 300);
       cxt.save();
@@ -833,18 +833,19 @@ let svg = d3
       cxt.scale(10, 2);
       cxt.fillRect(0, 0, 20, 20);
   ```
-  6. transform(a,b,c,d,e,f) 变形 
+  6. transform(a,b,c,d,e,f) 变形
      - a(m11) 水平方向的缩放
      - b(m12) 竖直方向的倾斜偏移
      - c(m21) 水平方向的倾斜偏移
      - d(m22) 竖直方向的缩放
      - e(dx) 水平方向的移动
      - f(dy) 竖直方向的移动
-     - setTransform(a, b, c, d, e, f) 
-     - resetTransform() 等价于setTransform(1,0,0,1,0,0)
-  *[@_@] 每次做变形之前先调用save()保存画布的状态，这样调用restore时才可以恢复到上一次的状态
+     - setTransform(a, b, c, d, e, f)
+     - resetTransform() 等价于 setTransform(1,0,0,1,0,0) \*[@_@] 每次做变形之前先调用 save()保存画布的状态，这样调用 restore 时才可以恢复到上一次的状态
 - clip 裁剪
+
   - clip() 设定裁剪区域，只有在裁剪区域内的图形才能显示
+
   ```
   cxt.beginPath();
       cxt.fillStyle = 'hsl(0,50%,50%)';
@@ -867,9 +868,12 @@ let svg = d3
       cxt.fill();
 
   ```
+
   - globalCompositeOperation 设置如何将目标图像放置在源图像上面
     [参考文档](https://segmentfault.com/a/1190000016214908)
+
 - 动画
+
   ```
   let time = new Date();
       this.cxt.rotate(
@@ -879,18 +883,18 @@ let svg = d3
       this.cxt.translate(105, 0);
       this.cxt.drawImage(this.earthImg, 0, 0);
 
-   
+
       this.cxt.rotate(
         ((2 * Math.PI) / 6) * time.getSeconds() +
           ((2 * Math.PI) / 6000) * time.getMilliseconds()
       );
       this.cxt.translate(0, 38);
       this.cxt.drawImage(this.moonImg,0,0);
-  
+
 
       // 太阳系
       this.cxt.restore();
-     
+
       this.cxt.beginPath();
       this.cxt.arc(200, 200, 100, 0, Math.PI * 2);
       this.cxt.stroke();
@@ -904,7 +908,69 @@ let svg = d3
       this.cxt.restore();
       window.requestAnimationFrame(this.draw);
   ```
-# svg 待定 
+
+- 像素操作
+
+  1.  imageData 对象
+
+      - 可以操作像素数据
+      - 存储着 canvas 对象的真实数据，包括 width，height，data
+        - data : Uint8ClampedArray 类型的一维数组，rgba 格式的整型数据，范围在 0-255 之间,canvas 使用的 rgba 存储颜色值; 每个像素 4 个字节,共有 width _ height _ 4 个字节，这些字节存在一维数组中
+        - 如果想要得到第 m 行 n 列的蓝色部分，imageData.data[(m-1) * (n-1) * 4 + 2]
+        - [imageData](https://www.twle.cn/l/yufei/canvas/canvas-basic-imagedata.html)
+
+  2.  getImageData(left,top,width,height) 获取画布区域的数据对象
+  3.  putImageData(imageData,dx,dy) 对场景进行数据写入
+
+  ```
+   modify() {
+    let imageData = this.cxt.getImageData(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    );
+    let data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      let color = (data[i] + data[1 + i] + data[2 + i]) / 3;
+      data[i] = color;
+      data[i + 1] = color;
+      data[i + 2] = color;
+    }
+
+    this.cxt.putImageData(imageData, 0, 0);
+  },
+  revert() {
+    let imageData = this.cxt.getImageData(
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    );
+    let data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      data[i] = 255 - data[i];
+      data[i + 1] = 255 - data[i + 1];
+      data[i + 2] = 255 - data[i + 2];
+    }
+    this.cxt.putImageData(imageData, 0, 0);
+  },
+  original() {
+    let img = new Image();
+    img.src = country;
+    img.onload = () => {
+      this.cxt.drawImage(img, 0, 0);
+    };
+  },
+  ```
+
+  4. toDataURL(): canvas.toDataURL('可选参数 导出图片类型',arg..) = data:
+     ```
+          this.src = this.canvas.toDataURL();
+        console.log(this.src);
+     ```
+
+# svg 待定
 
 # antv (图表可视化插件) 待定
 
@@ -918,7 +984,9 @@ let svg = d3
 - a 透明度
 
 # Blob 对象
-  [参考文档](https://github.com/akira-cn/FE_You_dont_know/issues/12)
+
+[参考文档](https://github.com/akira-cn/FE_You_dont_know/issues/12)
+
 ```
  let test = 'console.log("hello world")';
     let blob = new Blob([test], { type: 'text/javascript' });

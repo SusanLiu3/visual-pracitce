@@ -57,7 +57,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 canvas {
   /* 设置鼠标的光标是一张图片， 16和22 分别表示热点的X坐标和Y坐标 */
   /* https://developer.mozilla.org/zh-CN/docs/Web/CSS/cursor/url */

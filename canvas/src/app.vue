@@ -12,6 +12,8 @@
         <img-animate></img-animate>
         <senior-animate></senior-animate>
         <image-data></image-data>
+        <hit-region></hit-region>
+        <focus></focus>
     </div>
 </template>
 <script>
@@ -27,6 +29,8 @@ import canvasClock from './components/clock.vue'
 import imgAnimate from './components/imgAnimate.vue'
 import seniorAnimate from './components/seniorAnimate.vue'
 import imageData from './components/imageData.vue'
+import hitRegion from './components/hitRegion.vue'
+import focus from './components/focus.vue'
 export default {
     components:{
         canvasApi,
@@ -40,7 +44,9 @@ export default {
         canvasClock,
         imgAnimate,
         seniorAnimate,
-        imageData
+        imageData,
+        hitRegion,
+        focus
     }
 }
 </script>

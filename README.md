@@ -969,7 +969,29 @@ let svg = d3
           this.src = this.canvas.toDataURL();
         console.log(this.src);
      ```
-
+- 点击区域和无障碍访问
+  1. canvas 是一个位图，不提供任何信息，canvas内容不能像HTML语义化暴露出来
+  2. 点击区域 （下面几个方法 实验性特性，目前浏览器不兼容，已经废弃）
+       - cxt.addHitRegion() 添加点击区域 将指定事件转义到某个元素上面来
+       - cxt.removeHitRegion() 移除指定ID下的点击区域
+       - cxt.clearHitRegions() 移除所有的点击区域
+    ```
+       cxt.beginPath();
+      cxt.arc(50, 50, 20, 0, Math.PI * 2);
+      cxt.fill();
+      // 目前浏览器不支持
+    //   cxt.addHitRegion({ id: "btn" }); 
+    // control 指定把事件转发到哪个元素上
+    // cxt.addHitRegion({control:document.getElementById('btn')})
+      canvas.addEventListener("mousemove", function(event) {
+        if (event.region) { // 检测鼠标有没有点击该区域
+          alert("test");
+        }
+      });
+    ```
+  3. [焦点区域](https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial/Hit_regions_and_accessibility)
+     - drawFocusIfNeeded() 略
+     - scrollPathIntoView()
 # svg 待定
 
 # antv (图表可视化插件) 待定

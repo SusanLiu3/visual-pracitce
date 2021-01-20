@@ -1,7 +1,7 @@
 <template>
     <div id="app">
-       <axis></axis>
-       <graphic></graphic>
+       <!-- <axis></axis>
+       <graphic></graphic> -->
        <map-antv></map-antv>
     </div>
 </template>

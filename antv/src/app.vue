@@ -1,8 +1,8 @@
 <template>
     <div id="app">
-       <!-- <axis></axis>
-       <graphic></graphic> -->
-       <map-antv></map-antv>
+       <axis></axis>
+       <graphic></graphic>
+       <!-- <map-antv></map-antv> -->
     </div>
 </template>
 <script>

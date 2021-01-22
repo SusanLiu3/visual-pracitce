@@ -57,7 +57,6 @@ export default {
     chart.legend({ position: 'right' });
 
     chart.tooltip({
-      shared: true,
       customContent: (name, items) => {
         const container = document.createElement('div');
         container.className = 'g2-tooltip';
@@ -82,10 +81,10 @@ export default {
       // showMarkers:true
     });
     chart.interaction('active-region');
-    chart.on('tooltip:show', (ev) => {});
-    chart.on('tooltip:change', (ev) => {
-      let { item, x, y } = ev.data;
-    });
+    // chart.on('tooltip:show', (ev) => {});
+    // chart.on('tooltip:change', (ev) => {
+    //   let { item, x, y } = ev.data;
+    // });
     // registerComponentController('slider', Slider);
     // chart.option('slider', {
     //   start: 0.4,

@@ -12,13 +12,8 @@ export default {
       { year: '1951 年', sales: 93.33, test: 'test1' },
       { year: '1952 年', sales: 65.67, test: 'test2' },
       { year: '1956 年', sales: 34.77, test: 'test3' },
-      { year: '1957 年', sales: 51.44, test: 'test4' },
-      { year: '1958 年', sales: 81.12, test: 'test5' },
-      { year: '1959 年', sales: 31.05 , test: 'test6' },
-      { year: '1960 年', sales: 60.81, test: 'test67' },
-      { year: '1962 年', sales: 20.39, test: 'test8' },
-      { year: '1963 年', sales: 80.37, test: 'test9' },
-      { year: '1964 年', sales: 90.17, test: 'test' },
+      { year: '1957 年', sales: 51.44, test: 'test4' }
+      
     ];
     let chart = new this.Chart({
       container: 'axisWrap',
@@ -127,10 +122,10 @@ export default {
     //   color: '#FF4D4F',
     // });
 
-    chart
+  let geometry=  chart
       .interval()
       .position('sales')
-      .color('year', ['red', 'blue', 'yellow', 'pink', '#f23'])
+      .color('sales*test')
       .adjust('stack')
       .label('sales', {
     
@@ -204,6 +199,21 @@ export default {
     // }); // 柱子
     // chart.line().position('year*sales'); // 线性图
     chart.render();
+
+    setTimeout(() => {
+      //  geometry.color('year', ['#000', 'green', '#d3d3d3', 'pink', '#f23'])
+      // chart.render();
+    }, 3000);
+
+
+    setTimeout(() => {
+      // chart.data([ { year: '1951 年', sales: 93.33, test: 'test1' },
+      // { year: '1952 年', sales: 65.67, test: 'test2' },
+      // { year: '1956 年', sales: 34.77, test: 'test3' },
+      // { year: '1957 年', sales: 51.44, test: 'test4' },
+      // { year: '1958 年', sales: 81.12, test: 'test5' }]); 
+      // chart.render();
+    }, 5000);
   },
   methods: {
     drawAxis() {},

@@ -995,6 +995,8 @@ let svg = d3
 # svg 待定
 
 # antv (图表可视化插件) 待定
+  - [pack circle](https://www.cnblogs.com/kidsitcn/p/7193629.html)
+  - [antv pack 思想](https://antv-g2.gitee.io/zh/examples/relation/relation#circle-packing)
 
 # hsla()
 

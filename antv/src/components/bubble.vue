@@ -9,16 +9,16 @@ export default {
   mounted() {
     let G = this.getEngine('canvas');
     const data = [
-      { size: 8, name: 'BE', country: 'Belgium' },
+      { size: 9, name: 'BE', country: 'Belgium' },
       { size: 18, name: 'DE', country: 'Germany' },
       { size: 10, name: 'FI', country: 'Finland' },
       { size: 15, name: 'NL', country: 'Netherlands' },
       { size: 20, name: 'SE', country: 'Sweden' },
       { size: 88, name: 'dd', country: 'fff' },
-      { size: 48, name: 'gg', country: 'Sweden' },
+      { size: 48, name: 'gg', country: 'tt' },
     ];
 
-    var pack = d3.pack().size([900, 400]);
+    var pack = d3.pack().size([900*.75, 400*.75]);
 
     var root = d3
       .hierarchy({
@@ -27,8 +27,9 @@ export default {
       .sum((d) => {
         return d.size;
       });
-    // root.sort((a, b) => b.value - a.value);
-    root.sort((a, b) => a.value - b.value);
+
+    root.sort((a, b) => b.value - a.value);
+    // root.sort((a, b) => a.value - b.value);
     // root.sort((a, b) => Math.random() * 2 - 1);
     var nodes = pack(root)
       .leaves()
@@ -39,7 +40,7 @@ export default {
           r: d.r,
           radius: d.r,
           value: d.value,
-          data: d.data,
+          ...d.data,
         };
       });
     let points = [];
@@ -47,6 +48,8 @@ export default {
       // 2. 绘制
       draw(cfg, group) {
         points = this.parsePoints(cfg.points); // 将0-1空间的坐标转换为画布坐标
+        // cfg.points[0].x = cfg.data.x;
+        // cfg.points[0].y = cfg.data.y;
         const polygon = group.addShape('circle', {
           attrs: {
             ...cfg.defaultStyle,
@@ -64,8 +67,7 @@ export default {
       container: 'bubbleWrap',
       autoFit: true,
       height: 500,
-      width:900
-     
+      width: 900,
     });
 
     chart.data(nodes);
@@ -74,12 +76,7 @@ export default {
     chart.tooltip({
       showTitle: false,
       showMarkers: false,
-      // customContent: (name, data) => {
-      //   const container = document.createElement('div');
-      //   container.className = 'g2-tooltip';
-      //   container.innerHTML = '<div>ppp</div>';
-      //   return container;
-      // },
+      shared:true,
     });
     // 开始配置坐标轴
     chart.axis(false);
@@ -87,22 +84,22 @@ export default {
 
     chart
       .point()
-      .position('x*y')
+      .position('country*y')
       .color('#1890ff')
-      .size('value')
+      .size('size')
       .shape('triangle')
-      .tooltip('value')
-      .label('value', {
-        offset: 0, // 文本距离图形的距离
+      .tooltip('country')
+      .label('country', {
+        type:'polar',
+        labelEmit:true,
+        offsetX:20,
+        layout:{type:'overlap'},
         content: (obj, item) => {
-          // console.log(points);
           const group = new G.Group({});
           group.addShape({
             type: 'text',
             attrs: {
-              x: obj.x,
-              y: obj.y,
-              text: obj.value,
+              text: obj.country,
               fill: '#f45',
             },
           });

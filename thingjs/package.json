@@ -1,0 +1,33 @@
+{
+  "name": "visual-pracitce",
+  "version": "1.0.0",
+  "description": "d3.js svg canvas learn",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SusanLiu93/visual-pracitce.git"
+  },
+  "author": "liuss",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SusanLiu93/visual-pracitce/issues"
+  },
+  "homepage": "https://github.com/SusanLiu93/visual-pracitce#readme",
+  "keywords": [
+    "d3.js",
+    "svg",
+    "canvas"
+  ],
+  "dependencies": {
+    "url-loader": "^4.1.1"
+  },
+  "devDependencies": {
+    "@antv/l7": "^2.3.7",
+    "@antv/l7-maps": "^2.3.7",
+    "d3-fetch": "^2.0.0",
+    "style-loader": "^2.0.0"
+  }
+}

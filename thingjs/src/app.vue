@@ -1,23 +1,19 @@
 <template>
-  <div id="app">
-   <div id="div3d"></div>
-  </div>
+    <div id="app">
+        <campus></campus>
+    </div>
 </template>
 
 <script>
-
+import campus from './components/campus'
 export default {
-  name: 'App',
-  components: {
-  },
-  mounted() {
-     /* eslint-disable-next-line */
-    let app = new THING.App();
-    app.create({
-      type: "campus",
-      url: "https://www.thingjs.com/static/models/storehouse"
-    });
-  }
+    name: 'App',
+    components: {
+      campus
+    },
+    mounted() {
+       
+    }
 }
 </script>
 

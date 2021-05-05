@@ -7,29 +7,26 @@ import ScrollBar from '@antv/g2/lib/chart/controller/scrollbar';
 import { registerComponentController } from '@antv/g2/lib/core';
 export default {
   mounted() {
+    let G = this.getEngine('canvas');
     const data = [
-      { year: '1951 年', sales: 38 },
-      { year: '1952 年', sales: 52 },
-      { year: '1956 年', sales: 61 },
-      { year: '1957 年', sales: 145 },
-      { year: '1958 年', sales: 48 },
-      { year: '1959 年', sales: 38 },
-      { year: '1960 年', sales: 40 },
-      { year: '1962 年', sales: 58 },
-      { year: '1963 年', sales: 68 },
-      { year: '1964 年', sales: 78 },
-      { year: '1968 年', sales: 88 },
+      { year: '1951 年', sales: 93.33, test: 'test1' },
+      { year: '1952 年', sales: 65.67, test: 'test2' },
+      { year: '1956 年', sales: 34.77, test: 'test3' },
+      { year: '1957 年', sales: 51.44, test: 'test4' }
+      
     ];
     let chart = new this.Chart({
       container: 'axisWrap',
       width: 500,
       height: 500,
-
     });
     chart.data(data); // 填充数据
     chart.scale('year', {
       // range: [0.1, 0.9],
       // tickInterval:10,
+    });
+    chart.coordinate('theta', {
+      radius: 0.5,
     });
     chart.scale('sales', {
       alias: '销售数量',
@@ -37,35 +34,52 @@ export default {
       //tickCount: 5, // 刻度数
       // min: 40, // 刻度最小显示值
       // max: 140, // 刻度最大显示值
-      formatter: (v) => `￥${v}`, // 标签formatter
+      // formatter: (v) => `￥${v}`, // 标签formatter
       //tickInterval: 20, // 刻度间隔
     });
-    chart.axis('sales', {
-      title: {
-        style: {
-          fill: 'red',
-        },
-      },
-      label: {
-        style: {
-          // fill: 'red',
-        },
-      },
-    });
+    // chart.axis('sales', {
+    //   title: {
+    //     style: {
+    //       fill: 'red',
+    //     },
+    //   },
+    //   label: {
+    //     style: {
+    //       // fill: 'red',
+    //     },
+    //   },
+    // });
     chart.legend({ position: 'right' });
+
     chart.tooltip({
-      showCrosshairs: false,
-      shared: true,
-      showTitle: false,
-      itemTpl: `<div style='padding-bottom:10px'><li style='margin-bottom:8px'>{year}</li><li>销量 {value}</li></div>`,
+      customContent: (name, items) => {
+        const container = document.createElement('div');
+        container.className = 'g2-tooltip';
+        let listItem = '';
+        items.forEach((item) => {
+          listItem += `<li class="g2-tooltip-list-item" data-index={index} style="margin-bottom:4px;display:flex;align-items: center;">
+          <span style="display:inline-flex;flex:1;justify-content:space-between">
+          <span style="margin-right: 16px;">${item.data.year}</span>
+          <span>${item.data.sales}</span>
+          </span>
+      </li>`;
+        });
+        container.innerHTML = listItem;
+        return container;
+      },
+      // showCrosshairs: false,
+      // shared: true,
+      // showContent: true,
+      // showTitle: false,
+      // itemTpl: `<div style='padding-bottom:10px'><li style='margin-bottom:8px'>11</li><li>11</li></div>`,
 
       // showMarkers:true
     });
     chart.interaction('active-region');
-    chart.on('tooltip:show', (ev) => {});
-    chart.on('tooltip:change', (ev) => {
-      let { item, x, y } = ev.data;
-    });
+    // chart.on('tooltip:show', (ev) => {});
+    // chart.on('tooltip:change', (ev) => {
+    //   let { item, x, y } = ev.data;
+    // });
     // registerComponentController('slider', Slider);
     // chart.option('slider', {
     //   start: 0.4,
@@ -86,7 +100,7 @@ export default {
     registerComponentController('scrollbar', ScrollBar);
     chart.option('scrollbar', {
       type: 'horizontal',
-      categorySize:40,
+      categorySize: 40,
       // width:300
     });
 
@@ -108,38 +122,98 @@ export default {
     //   color: '#FF4D4F',
     // });
 
-    chart
+  let geometry=  chart
       .interval()
-      .position('year*sales')
-      .color('year', ['yellow', 'blue'])
-      .size(2)
-      .label('sales', (value) => {
-        return {
-          type: 'interval',
-          style: {
-            fill: 'red',
-            stroke: 'blue',
-          },
-          offsetX: 20,
-          offsetY: 30,
-          content: value + '这是标签mmm',
-          autoRotate: false,
-          rotate: true,
-          labelLine: {
-            style: {
-              stroke: 'yellow',
-            },
-          },
-        };
-      })
-      .tooltip('year*sales', (year, sales) => {
-        return {
-          year: year,
-          value: sales,
-        };
-      }); // 柱子
+      .position('sales')
+      .color('sales*test')
+      .adjust('stack')
+      .label('sales', {
+    
+    lineHeight:24,
+    layout: [{ type: 'pie-spider' }, { type: 'hide-overlap' }],
+    content: (obj, item) => {
+      const group = new G.Group({});
+      // 了解 shape 的绘制原理：y0 左下起点 y1 右上起点
+      const [y0, y1] = item.y || [0, 0];
+      const inRight = y0 < y1;
+      const textAlign = inRight ? 'left' : 'right';
+
+      const topFontSize = 16;
+      const bottomFontSize = 14;
+      group.addShape({
+        type: 'text',
+        attrs: {
+          x: 0,
+          y: 0,
+          text: obj.sales,
+          fill: 'rgba(0, 0, 0, 0.65)',
+          fontSize: topFontSize,
+          textAlign,
+        },
+      });
+
+      group.addShape({
+        type: 'text',
+        attrs: {
+          x: 0,
+          y: 4,
+          text: obj.year,
+          textAlign,
+          textBaseline: 'top',
+          fill: 'rgba(0, 0, 0, 0.65)',
+          fontWeight: 700,
+          fontSize: bottomFontSize,
+        },
+      });
+       group.addShape({
+        type: 'text',
+        attrs: {
+          x: 0,
+          y: 20,
+          text: obj.test,
+          textAlign,
+          textBaseline: 'top',
+          fill: 'rgba(0, 0, 0, 0.65)',
+          fontWeight: 700,
+          fontSize: bottomFontSize,
+        },
+      });
+      if (!inRight) {
+        group.translate(group.getBBox().width, 0);
+      }
+      group.translate(0, 16);
+      return group;
+    },
+    labelLine: {
+      style: {
+        lineWidth: 0.5,
+      },
+    },
+  })
+  .adjust('stack');
+    // .tooltip('year*sales*test', (year,sales, test) => {
+    //   return {
+    //     name: year,
+    //     value: sales,
+    //   };
+    // }); // 柱子
     // chart.line().position('year*sales'); // 线性图
     chart.render();
+
+    setTimeout(() => {
+      //  geometry.color('year', ['#000', 'green', '#d3d3d3', 'pink', '#f23'])
+      // chart.render();
+    }, 3000);
+
+
+    setTimeout(() => {
+      // chart.data([ { year: '1951 年', sales: 93.33, test: 'test1' },
+      // { year: '1952 年', sales: 65.67, test: 'test2' },
+      // { year: '1956 年', sales: 34.77, test: 'test3' },
+      // { year: '1957 年', sales: 51.44, test: 'test4' },
+      // { year: '1958 年', sales: 81.12, test: 'test5' }]); 
+      // chart.render();
+    }, 5000);
   },
   methods: {
     drawAxis() {},

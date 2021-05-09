@@ -1,15 +1,17 @@
 <template>
     <div id="app">
-        <campus></campus>
+        <object></object>
     </div>
 </template>
 
 <script>
 import campus from './components/campus'
+import object from './components/object'
 export default {
     name: 'App',
     components: {
-      campus
+      campus,
+      object
     },
     mounted() {
        

@@ -1,15 +1,18 @@
 <template>
     <div id="app">
-        <campus></campus>
+        <!-- <campus></campus> -->
+        <obj></obj>
     </div>
 </template>
 
 <script>
-import campus from './components/campus'
+// import campus from './components/campus'
+import obj from './components/object'
 export default {
     name: 'App',
     components: {
-      campus
+    //   campus,
+      obj
     },
     mounted() {
        

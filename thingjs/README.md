@@ -1,24 +1,7 @@
 # thingjs
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## three.js学习笔记
+   ### 使用步骤
+      1. 定义场景：场景用于保存、跟踪所要渲染的物体和光源
+      2. 定义摄像机：决定了能够在场景看到什么
+      3. 定义渲染器：该对象会基于摄像机的角度计算出场景在浏览器中渲染成的样子
+  

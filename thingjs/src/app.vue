@@ -1,18 +1,20 @@
 <template>
     <div id="app">
         <!-- <campus></campus> -->
-        <obj></obj>
+        <threejs></threejs>
     </div>
 </template>
 
 <script>
 // import campus from './components/campus'
-import obj from './components/object'
+// import obj from './components/object'
+import threejs from './components/threejs'
 export default {
     name: 'App',
     components: {
+        threejs,
     //   campus,
-      obj
+    //   obj
     },
     mounted() {
        

@@ -5,7 +5,7 @@ export default {
             cotainer: "div3d",
             url: "https://www.thingjs.com/static/models/storehouse"
         });
-        app.on('load', function (e) {
+        app.on('load', function () {
             
         })
     },

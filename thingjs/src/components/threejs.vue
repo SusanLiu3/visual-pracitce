@@ -70,7 +70,22 @@ export default {
 
     document.getElementById("threeWrap").appendChild(render.domElement);
 
-    render.render(scene, camera);
+    renderScene();
+    let step=0
+    function renderScene(){
+          step+=.4;
+          box.rotation.x+=.02
+          box.rotation.y+=.02
+          box.rotation.z+=.02
+          render.render(scene,camera)
+
+          sphere.position.x=20+10*Math.cos(step)
+          sphere.position.y=2+10*Math.abs(Math.sin(step))
+          requestAnimationFrame(renderScene)
+
+    }
   }
+
+
 };
 </script>

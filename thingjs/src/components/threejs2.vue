@@ -37,27 +37,42 @@ export default {
     camera.position.z = 30;
     camera.lookAt(scene.position);
     document.getElementById("threeWrap").appendChild(render.domElement);
-    render.render(scene, camera);
+    render1();
 
     let control = new (function() {
       this.addCube = function() {
         let boxGeometry = new THREE.BoxGeometry(4, 4, 4);
         let boxMaterial = new THREE.MeshLambertMaterial({
-          color: Math.random() * 0xffffff
+          color: 0xff0000
         });
 
         let box = new THREE.Mesh(boxGeometry, boxMaterial);
         box.castShadow = true;
-        box.position.x =  Math.random() * planeGeometry.parameters.width;
-        box.position.y = Math.round((Math.random() * 5));
-        box.position.z =  Math.random() * planeGeometry.parameters.height;
-        scene.add(box)
+        box.position.x = -4;
+        box.position.y = 3;
+        box.position.z = 0;
+        scene.add(box);
       };
       this.removeCube = function() {};
     })();
     let gui = new dat.GUI();
     gui.add(control, "addCube");
     gui.add(control, "removeCube");
+    function render1() {
+
+      // rotate the cubes around its axes
+      scene.traverse(function(e) {
+        if (e instanceof THREE.Mesh && e != plane) {
+          e.rotation.x += control.rotationSpeed;
+          e.rotation.y += control.rotationSpeed;
+          e.rotation.z += control.rotationSpeed;
+        }
+      });
+
+      // render using requestAnimationFrame
+      requestAnimationFrame(render1);
+      render.render(scene, camera);
+    }
   }
 };
 </script>

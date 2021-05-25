@@ -28,7 +28,7 @@ export default {
     });
     let plane = new THREE.Mesh(planeGeometry, planeMaterial);
     plane.rotation.x = -0.5 * Math.PI;
-    plane.position.set(15, 0, 0);
+    plane.position.set(0, 0, 0);
     plane.receiveShadow = true;
     scene.add(plane);
 
@@ -48,9 +48,9 @@ export default {
 
         let box = new THREE.Mesh(boxGeometry, boxMaterial);
         box.castShadow = true;
-        box.position.x = -30 + Math.random() * planeGeometry.parameters.width;
+        box.position.x =  Math.random() * planeGeometry.parameters.width;
         box.position.y = Math.round((Math.random() * 5));
-        box.position.z = -20 + Math.random() * planeGeometry.parameters.height;
+        box.position.z =  Math.random() * planeGeometry.parameters.height;
         scene.add(box)
       };
       this.removeCube = function() {};

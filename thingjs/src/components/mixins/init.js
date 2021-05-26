@@ -45,7 +45,7 @@ export default {
         },
         renderer() {
             document.getElementById(this.id).appendChild(this.render.domElement);
-            this.render.render(this.scene, this.camera)
+            // this.render.render(this.scene, this.camera)
         },
         createVertice() {
             let vertices = [
@@ -95,6 +95,48 @@ export default {
             });
 
             this.scene.add(mesh);
+        },
+        createControls() {
+            let that = this
+            let controls = new function () {
+                this.positionX = 0;
+                this.positionY = 4;
+                this.positionZ = 0;
+            }
+            let gui = new dat.GUI();
+            let guiPosition = gui.addFolder('position');
+            var contX = guiPosition.add(controls, 'positionX', -10, 10);
+            var contY = guiPosition.add(controls, 'positionY', -4, 20);
+            var contZ = guiPosition.add(controls, 'positionZ', -10, 10);
+            contX.listen()
+            contX.onChange(function () {
+                that.cube.position.x = controls.positionX;
+            })
+            contY.listen()
+            contY.onChange(function () {
+                that.cube.position.y = controls.positionY;
+            })
+            contZ.listen()
+            contZ.onChange(function () {
+                that.cube.position.z = controls.positionZ;
+            })
+        },
+        createCube() {
+            let boxGeometry = new THREE.BoxGeometry(4, 4, 4)
+            let boxMaterial = new THREE.MeshLambertMaterial({
+                color: 0xfff000
+            })
+            let box = new THREE.Mesh(boxGeometry, boxMaterial)
+            box.position.x = 0;
+            box.position.y = 4;
+            box.position.z = 0
+            box.receiveShadow = true
+            this.scene.add(box)
+            this.cube = box
+        },
+        newRender() {
+            requestAnimationFrame(this.newRender);
+            this.render.render(this.scene, this.camera)
         }
     },
 }

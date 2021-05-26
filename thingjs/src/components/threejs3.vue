@@ -15,7 +15,10 @@ export default {
         this.init();
         this.createPlane()
         this.createVertice()
+        this.createCube()
+        this.createControls()
         this.renderer()
+        this.newRender()
     }
 
 }

@@ -19,7 +19,7 @@ export default {
             this.render = new THREE.WebGLRenderer()
             this.render.setClearColor(new THREE.Color(0xeeeeee));
             this.render.setSize(window.innerWidth, window.innerHeight)
-            this.render.shadowMapEnabled = true;
+            this.render.shadowMap.enabled = true;
             this.camera.position.x = -30;
             this.camera.position.y = 40;
             this.camera.position.z = 30;
@@ -40,6 +40,7 @@ export default {
             plane.position.x = 15;
             plane.position.y = 0;
             plane.position.z = 0
+            plane.receiveShadow = true
             this.scene.add(plane)
         },
         renderer() {
@@ -72,30 +73,28 @@ export default {
                 new THREE.Face3(3, 6, 4),
             ]
 
-            let geo =new THREE.Geometry()
-            geo.vertices=vertices;
-            geo.faces=faces;
+            let geo = new THREE.Geometry()
+            geo.vertices = vertices;
+            geo.faces = faces;
             geo.computeFaceNormals();
-             var materials = [
-                 new THREE.MeshLambertMaterial({
-                     opacity: 0.6,
-                     color: 0x44ff44,
-                     transparent: true
-                 }),
-                 new THREE.MeshBasicMaterial({
-                     color: 0x000000,
-                     wireframe: true
-                 })
+            var materials = [
+                new THREE.MeshLambertMaterial({
+                    opacity: 0.6,
+                    color: 0x44ff44,
+                    transparent: true
+                }),
+                new THREE.MeshBasicMaterial({
+                    color: 0x000000,
+                    wireframe: true
+                })
 
-             ];
+            ];
+            var mesh = THREE.SceneUtils.createMultiMaterialObject(geo, materials);
+            mesh.children.forEach(function (e) {
+                e.castShadow = true
+            });
 
-
-             var mesh =new THREE.SceneUtils.createMultiMaterialObject(geo, materials);
-             mesh.children.forEach(function (e) {
-                 e.castShadow = true
-             });
-
-             this.scene.add(mesh);
+            this.scene.add(mesh);
         }
     },
 }

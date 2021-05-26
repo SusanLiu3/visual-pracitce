@@ -57,3 +57,8 @@
       render.render(scene, camera);
       ```
   
+
+## 解决git push unable acess to 
+  ```
+  git config --global http.proxy
+  ```

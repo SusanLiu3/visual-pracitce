@@ -17,6 +17,7 @@ export default {
         this.createVertice()
         this.createCube()
         this.createControls()
+        this.createLine()
         this.renderer()
         this.newRender()
     }

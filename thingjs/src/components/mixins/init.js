@@ -137,6 +137,19 @@ export default {
         newRender() {
             requestAnimationFrame(this.newRender);
             this.render.render(this.scene, this.camera)
+        },
+        createLine() {
+            let lineMaterial = new THREE.LineBasicMaterial({
+                color: 0x00ff00
+            });
+            let points = []
+            points.push(new THREE.Vector3(-10, 0, 0));
+            points.push(new THREE.Vector3(0, 10, 0))
+            points.push(new THREE.Vector3(10, 0, 0))
+
+            let geo = new THREE.BufferGeometry().setFromPoints(points)
+            let line = new THREE.Line(geo, lineMaterial)
+            this.scene.add(line)
         }
     },
 }

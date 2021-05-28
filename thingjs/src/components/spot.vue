@@ -22,6 +22,8 @@ export default {
         this.createLine()
         this.createLight()
         this.createSphere([20, 8, 0])
+        this.createCylinder([0, 17, -10])
+        this.createEqualCylinder([0, 10, -10])
         this.renderer()
         this.newRender()
     },
@@ -37,7 +39,7 @@ export default {
             spotLight.shadowCameraFov = 40
             spotLight.target = this.plane
             spotLight.distance = 0
-            spotLight.angle =0.4
+            spotLight.angle = 0.4
             this.scene.add(spotLight)
         },
         createPointLight() {

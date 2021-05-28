@@ -4,7 +4,7 @@ export const geometryMixins = {
         createSphere(position) {
             let color = new THREE.Color('#f45')
             let sphereGeometry = new THREE.SphereGeometry(4);// 半径,>=3 默认8 ,
-            let sphereMaterial = new THREE.MeshLambertMaterial({color: 0x7777ff })
+            let sphereMaterial = new THREE.MeshLambertMaterial({ color: 0x7777ff })
             let sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
 
             sphere.position.x = position[0];
@@ -29,5 +29,25 @@ export const geometryMixins = {
             let line = new THREE.Line(geo, lineMaterial)
             this.scene.add(line)
         },
+        // 创建圆柱体 上下半径不相等
+        createCylinder(p) {
+            let cylinderGeo = new THREE.CylinderGeometry(2, 8, 7, 40, 5, false);
+            let cylinderMaterial = new THREE.MeshLambertMaterial({ color: 0x0077ff })
+            let cylinder = new THREE.Mesh(cylinderGeo, cylinderMaterial)
+            cylinder.position.x = p[0]
+            cylinder.position.y = p[1] 
+            cylinder.position.z = p[2]
+            this.scene.add(cylinder)
+        },
+        // 创建圆柱体
+        createEqualCylinder(p) {
+            let cylinderGeo = new THREE.CylinderGeometry(8, 8, 7, 40, 5, false);
+            let cylinderMaterial = new THREE.MeshLambertMaterial({ color: 0x0077ff })
+            let cylinder = new THREE.Mesh(cylinderGeo, cylinderMaterial)
+            cylinder.position.x = p[0]
+            cylinder.position.y = p[1]
+            cylinder.position.z = p[2]
+            this.scene.add(cylinder)
+        }
     }
 }

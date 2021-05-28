@@ -24,9 +24,9 @@ export default {
             this.camera.position.y = 40;
             this.camera.position.z = 30;
             this.camera.lookAt(this.scene.position);
-           
+
         },
-        createLight(){
+        createLight() {
             let spot = new THREE.SpotLight(0xffffff)
             spot.position.set(-40, 60, -10);
             spot.castShadow = true;
@@ -44,6 +44,7 @@ export default {
             plane.position.y = 0;
             plane.position.z = 0
             plane.receiveShadow = true
+            this.plane = plane
             this.scene.add(plane)
         },
         renderer() {
@@ -141,18 +142,5 @@ export default {
             requestAnimationFrame(this.newRender);
             this.render.render(this.scene, this.camera)
         },
-        createLine() {
-            let lineMaterial = new THREE.LineBasicMaterial({
-                color: 0x00ff00
-            });
-            let points = []
-            points.push(new THREE.Vector3(-10, 0, 0));
-            points.push(new THREE.Vector3(0, 10, 0))
-            points.push(new THREE.Vector3(10, 0, 0))
-
-            let geo = new THREE.BufferGeometry().setFromPoints(points)
-            let line = new THREE.Line(geo, lineMaterial)
-            this.scene.add(line)
-        }
     },
 }

@@ -1,4 +1,4 @@
-# thingjs
+
 ## three.js学习笔记
    ### 使用步骤
       1. 定义场景：场景用于保存、跟踪所要渲染的物体和光源
@@ -62,3 +62,5 @@
   ```
   git config --global http.proxy
   ```
+## threejsAPI文档
+   - [链接地址](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)

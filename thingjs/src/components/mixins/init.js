@@ -24,6 +24,9 @@ export default {
             this.camera.position.y = 40;
             this.camera.position.z = 30;
             this.camera.lookAt(this.scene.position);
+           
+        },
+        createLight(){
             let spot = new THREE.SpotLight(0xffffff)
             spot.position.set(-40, 60, -10);
             spot.castShadow = true;

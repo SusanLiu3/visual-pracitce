@@ -13,6 +13,7 @@ export default {
     },
     mounted(){
         this.init();
+        this.createLight()
         this.createPlane()
         this.createVertice()
         this.createCube()

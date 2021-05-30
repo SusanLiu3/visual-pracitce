@@ -8,7 +8,7 @@
 <script>
 // import campus from './components/campus'
 // import obj from './components/object'
-import threejs from './components/spot'
+import threejs from './components/material'
 export default {
     name: 'App',
     components: {

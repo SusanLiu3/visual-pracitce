@@ -24,32 +24,11 @@ export default {
             this.camera.position.y = 40;
             this.camera.position.z = 30;
             this.camera.lookAt(this.scene.position);
-
-        },
-        createLight() {
-            let spot = new THREE.SpotLight(0xffffff)
-            spot.position.set(-40, 60, -10);
-            spot.castShadow = true;
-            this.scene.add(spot);
-        },
-        // 创建平面
-        createPlane() {
-            let planeGeometry = new THREE.PlaneGeometry(60, 40, 1, 1)
-            let planeMaterial = new THREE.MeshLambertMaterial({
-                color: 0xffffff
-            })
-            let plane = new THREE.Mesh(planeGeometry, planeMaterial);
-            plane.rotation.x = -0.5 * Math.PI;
-            plane.position.x = 15;
-            plane.position.y = 0;
-            plane.position.z = 0
-            plane.receiveShadow = true
-            this.plane = plane
-            this.scene.add(plane)
-        },
-        renderer() {
             document.getElementById(this.id).appendChild(this.render.domElement);
-            // this.render.render(this.scene, this.camera)
+        },
+        newRender() {
+            requestAnimationFrame(this.newRender);
+            this.render.render(this.scene, this.camera)
         },
         createVertice() {
             let vertices = [
@@ -138,9 +117,6 @@ export default {
             this.scene.add(box)
             this.cube = box
         },
-        newRender() {
-            requestAnimationFrame(this.newRender);
-            this.render.render(this.scene, this.camera)
-        },
+
     },
 }

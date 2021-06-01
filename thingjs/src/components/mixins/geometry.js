@@ -1,5 +1,19 @@
 export const geometryMixins = {
     methods: {
+        createPlane() {
+            let planeGeometry = new THREE.PlaneGeometry(60, 40, 1, 1)
+            let planeMaterial = new THREE.MeshLambertMaterial({
+                color: 0xffffff
+            })
+            let plane = new THREE.Mesh(planeGeometry, planeMaterial);
+            plane.rotation.x = -0.5 * Math.PI;
+            plane.position.x = 15;
+            plane.position.y = 0;
+            plane.position.z = 0
+            plane.receiveShadow = true
+            this.plane = plane
+            this.scene.add(plane)
+        },
         // 创建球体
         createSphere(position) {
             let color = new THREE.Color('#f45')
@@ -32,17 +46,21 @@ export const geometryMixins = {
         // 创建圆柱体 上下半径不相等
         createCylinder(p) {
             let cylinderGeo = new THREE.CylinderGeometry(2, 8, 7, 40, 5, false);
-            let cylinderMaterial = new THREE.MeshLambertMaterial({ color: 0x0077ff })
+            let cylinderMaterial = new THREE.MeshLambertMaterial({
+                color: 0x0077ff
+            })
             let cylinder = new THREE.Mesh(cylinderGeo, cylinderMaterial)
             cylinder.position.x = p[0]
-            cylinder.position.y = p[1] 
+            cylinder.position.y = p[1]
             cylinder.position.z = p[2]
             this.scene.add(cylinder)
         },
         // 创建圆柱体
         createEqualCylinder(p) {
             let cylinderGeo = new THREE.CylinderGeometry(8, 8, 7, 40, 5, false);
-            let cylinderMaterial = new THREE.MeshLambertMaterial({ color: 0x0077ff })
+            let cylinderMaterial = new THREE.MeshLambertMaterial({
+                color: 0x0077ff
+            })
             let cylinder = new THREE.Mesh(cylinderGeo, cylinderMaterial)
             cylinder.position.x = p[0]
             cylinder.position.y = p[1]

@@ -3,7 +3,7 @@ export const geometryMixins = {
         // 创建球体
         createSphere(position) {
             let color = new THREE.Color('#f45')
-            let sphereGeometry = new THREE.SphereGeometry(4);// 半径,>=3 默认8 ,
+            let sphereGeometry = new THREE.SphereGeometry(4,20,20);// 半径,>=3 默认8 ,
             let sphereMaterial = new THREE.MeshLambertMaterial({ color: 0x7777ff })
             let sphere = new THREE.Mesh(sphereGeometry, sphereMaterial)
 

@@ -43,8 +43,8 @@ export default {
             let childrenList = this.scene.children || []
             for (let i = 0; i < childrenList.length; i++) {
                 let obj = childrenList[i]
-                // obj.rotation.x = timer * 5;
-                // obj.rotation.y = timer * 2.5;
+                obj.rotation.x = timer * 5;
+                obj.rotation.y = timer * 2.5;
             }
             this.render.render(this.scene, this.camera)
         }

@@ -33,6 +33,7 @@ export default {
             this.createCylinder(4, 6, 6, [-10, 0, 20], false, 0, Math.PI / 3)
             this.createTorus()
             this.createTorusKnot()
+            this.createTetrahedron()
         }
     }
 }

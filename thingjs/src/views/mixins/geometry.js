@@ -91,11 +91,24 @@ export default {
             this.scene.add(torus)
         },
         createTorusKnot() {
-            let torusKnotGeo = new THREE.TorusKnotGeometry(8, 2, 64, 8,4,2)
+            let torusKnotGeo = new THREE.TorusKnotGeometry(8, 2, 64, 8, 4, 2)
             let torusKnot = new THREE.Mesh(torusKnotGeo, this.textureMaterial)
             torusKnot.position.x = 15
             torusKnot.position.z = 20
             this.scene.add(torusKnot)
+        },
+        // 四面体
+        createTetrahedron() {
+            let tetrahedronGeo = new THREE.TetrahedronGeometry(4)
+            let tetrahedronMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00FF00,
+                wireframe: true
+            })
+            let tetrahedron = new THREE.Mesh(tetrahedronGeo, tetrahedronMaterial)
+            tetrahedron.position.x = 30;
+            tetrahedron.position.y = 15;
+            tetrahedron.position.z = -25
+            this.scene.add(tetrahedron)
         }
     }
 }

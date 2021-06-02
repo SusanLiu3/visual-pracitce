@@ -2,16 +2,17 @@ import * as THREE from 'three';
 export default {
     methods: {
         // 平面 长方形
-        createPlane() {
-            let planeGeometry = new THREE.PlaneGeometry(10, 5)
-            let planeMaterial = new THREE.MeshLambertMaterial({
+        createPlane(flag, position) {
+            let planeGeometry = new THREE.PlaneGeometry(10, 5, 4, 2)
+            let planeMaterial = new THREE.MeshBasicMaterial({
                 color: 0xffff00,
-                side: THREE.DoubleSide
+                side: THREE.DoubleSide,
+                wireframe: flag
             })
             let plane = new THREE.Mesh(planeGeometry, planeMaterial)
-            plane.position.x = -30
-            plane.position.z = 0;
-            plane.position.y = 3;
+            plane.position.x = position[0]
+            plane.position.z = position[1];
+            plane.position.y = position[2];
             plane.receiveShadow = true;
             this.plane = plane
             this.scene.add(plane)
@@ -101,7 +102,7 @@ export default {
         createTetrahedron() {
             let tetrahedronGeo = new THREE.TetrahedronGeometry(4)
             let tetrahedronMaterial = new THREE.MeshBasicMaterial({
-                color: 0x00FF00,
+                color: 0x9400D3,
                 wireframe: true
             })
             let tetrahedron = new THREE.Mesh(tetrahedronGeo, tetrahedronMaterial)
@@ -109,6 +110,114 @@ export default {
             tetrahedron.position.y = 15;
             tetrahedron.position.z = -25
             this.scene.add(tetrahedron)
+        },
+        createOctahedron() {
+            let octaGeo = new THREE.OctahedronGeometry(8)
+            let octaMaterial = new THREE.MeshBasicMaterial({
+                color: 0x2E8B57,
+                wireframe: true,
+                wireframeLinewidth: 8,
+                wireframeLinejoin: 'miter'
+            })
+            let octa = new THREE.Mesh(octaGeo, octaMaterial)
+            octa.position.x = 38;
+            octa.position.y = 5;
+            octa.position.z = -15
+            this.scene.add(octa)
+        },
+        createIcosahedron() {
+            let icosahedronGeo = new THREE.IcosahedronGeometry(8)
+            let icosahedronMaterial = new THREE.MeshBasicMaterial({
+                color: 0x808000,
+                wireframe: true,
+                wireframeLinewidth: 8,
+                wireframeLinejoin: 'miter'
+            })
+            let icosahedron = new THREE.Mesh(icosahedronGeo, icosahedronMaterial)
+            icosahedron.position.x = 38;
+            icosahedron.position.y = 15;
+            icosahedron.position.z = 15
+            this.scene.add(icosahedron)
+        },
+        createRing(pos, start, len) {
+            start = start || 0
+            len = len || Math.PI * 2
+            let ringGeo = new THREE.RingGeometry(2, 6, 8, 4, start, len)
+            let ringMaterial = new THREE.MeshBasicMaterial({
+                color: 0xFFA500,
+                wireframe: true,
+            })
+            let ring = new THREE.Mesh(ringGeo, ringMaterial);
+            ring.position.x = pos[0]
+            ring.position.y = pos[1];
+            ring.position.z = pos[2]
+            this.scene.add(ring);
+        },
+        createShape() {
+
+            const x = -45, y = 20;
+            const heartShape = new THREE.Shape();
+            heartShape.moveTo(x + 5, y + 5);
+            heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
+            heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7);
+            heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19);
+            heartShape.bezierCurveTo(x + 12, y + 15.4, x + 16, y + 11, x + 16, y + 7);
+            heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
+            heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
+
+            const geometry = new THREE.ShapeGeometry(heartShape);
+            const material = new THREE.MeshBasicMaterial({ color: 0xFF6347, side: THREE.DoubleSide, });
+            const mesh = new THREE.Mesh(geometry, material);
+            this.scene.add(mesh);
+
+            let circle = new THREE.Shape()
+            circle.arc(-58, 0, 8, 0, Math.PI * 2)
+            const cGeometry = new THREE.ShapeGeometry(circle);
+            const cMaterial = new THREE.MeshBasicMaterial({ color: 0xFF6347, side: THREE.DoubleSide, });
+            const cMesh = new THREE.Mesh(cGeometry, cMaterial);
+            this.scene.add(cMesh);
+        },
+        createCone() {
+            const coneGeo = new THREE.ConeGeometry(5, 20, 32);
+            const coneMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+            const cone = new THREE.Mesh(coneGeo, coneMaterial);
+            cone.position.x = -50;
+            cone.position.z = 20
+            this.scene.add(cone);
+        },
+        createGeo() {
+            let vertices = [
+                new THREE.Vector3(-16, 12, -35),
+                new THREE.Vector3(-8, 8, -20),
+                new THREE.Vector3(-10, 0, -25),
+                new THREE.Vector3(-20, 8, -20)
+            ]
+            // let geo = new THREE.Geometry() 废弃 https://sbcode.net/threejs/geometry-to-buffergeometry/
+            let bufferGeo = new THREE.BufferGeometry()
+            bufferGeo.setFromPoints([
+                vertices[0],
+                vertices[1],
+                vertices[2],
+
+                vertices[0],
+                vertices[3],
+                vertices[2],
+
+                vertices[1],
+                vertices[2],
+                vertices[3],
+
+                vertices[0],
+                vertices[1],
+                vertices[3],
+            ])
+            bufferGeo.computeVertexNormals()
+            let material = new THREE.MeshBasicMaterial({
+                color: 0xB22222,
+                wireframe: true
+            })
+            let mesh = new THREE.Mesh(bufferGeo, material)
+            this.scene.add(mesh)
         }
     }
 }

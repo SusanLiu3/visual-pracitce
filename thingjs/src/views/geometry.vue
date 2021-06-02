@@ -22,7 +22,8 @@ export default {
     },
     methods: {
         createGeometry() {
-            this.createPlane()
+            this.createPlane(false,[-30,0,3])
+            this.createPlane(true,[-40,0,3])
             this.createBox()
             this.createSphere(true, [-60, 2, -10])
             this.createSphere(true, [-30, 20, -10], Math.PI / 6, Math.PI / 3)
@@ -34,6 +35,13 @@ export default {
             this.createTorus()
             this.createTorusKnot()
             this.createTetrahedron()
+            this.createOctahedron()
+            this.createIcosahedron()
+            this.createRing([50,0,30])
+            this.createRing([30,0,30],0,Math.PI)
+            this.createShape()
+            this.createCone()
+            this.createGeo()
         }
     }
 }

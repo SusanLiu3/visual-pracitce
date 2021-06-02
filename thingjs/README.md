@@ -67,3 +67,8 @@
 
 
 <p style='color:#0099ff'>tttt</p>
+
+p{
+   color:'#f45
+}
+

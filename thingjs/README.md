@@ -66,9 +66,5 @@
    - [链接地址](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
 
 
-<p style='color:#0099ff'>tttt</p>
-
-p{
-   color:'#f45
-}
+<font color="#dd0000">浅红色文字：</font>
 

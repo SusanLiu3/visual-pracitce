@@ -69,8 +69,8 @@
 ```
 <p>test</p>
 ```
-```css
+<style>
 p{
    color:red
 }
-```
+<style>

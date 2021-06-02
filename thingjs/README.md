@@ -66,11 +66,4 @@
    - [链接地址](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
 
 
-```
-<p>test</p>
-```
-<style>
-p{
-   color:red
-}
-<style>
+<font color=#0099ff size=7 face="黑体">color=#0099ff size=72 face="黑体"</font>

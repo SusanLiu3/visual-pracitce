@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-export default {
-    methods: {
+export function geometryProcess(cxt,scene) {
+    return {
         // 平面 长方形
-        createPlane(flag, position) {
+        createPlane( flag, position) {
             let planeGeometry = new THREE.PlaneGeometry(10, 5, 4, 2)
             let planeMaterial = new THREE.MeshBasicMaterial({
                 color: 0xffff00,
@@ -14,8 +14,8 @@ export default {
             plane.position.z = position[1];
             plane.position.y = position[2];
             plane.receiveShadow = true;
-            this.plane = plane
-            this.scene.add(plane)
+            // this.plane = plane
+            scene.add(plane)
         },
         // 创建立方体
         createBox() {
@@ -27,8 +27,7 @@ export default {
             box.position.x = 10;
             box.position.y = 4;
             box.position.z = 0
-            this.box = box
-            this.scene.add(box)
+            scene.add(box)
         },
         // 球体
         createSphere(flag, position, hStart, hLen, vStart, vLen) {
@@ -44,18 +43,18 @@ export default {
             sphere.position.x = position[0];
             sphere.position.y = position[1];
             sphere.position.z = position[2]
-            this.scene.add(sphere)
+            scene.add(sphere)
         },
         createSphere2() {
             //球形网格 （半径长度，水平块的密度，垂直块的密度）
-            let sphere = new THREE.Mesh(new THREE.SphereGeometry(12, 20, 10), this.textureMaterial);
+            let sphere = new THREE.Mesh(new THREE.SphereGeometry(12, 20, 10), cxt.textureMaterial);
             sphere.position.x = 75
             sphere.position.y = 0
             sphere.position.z = -35
             sphere.receiveShadow = true
-            this.scene.add(sphere);
+            scene.add(sphere);
         },
-        createCircle(segments, start, length) {
+        createCircle( segments, start, length) {
             segments = segments || 8
             start = start || 0
             length = length || Math.PI * 2
@@ -69,17 +68,17 @@ export default {
             circle.position.x = 50
             circle.position.y = 0;
             circle.position.z = 20
-            this.scene.add(circle);
+            scene.add(circle);
         },
         createCylinder(topRadius, bottomRadius, height, position, openEnded, thetaStart, thetaLen) {
             thetaStart = thetaStart || 0
             thetaLen = thetaLen || Math.PI * 2
             let cylinderGeometry = new THREE.CylinderGeometry(topRadius, bottomRadius, height, 8, 1, openEnded, thetaStart, thetaLen)
-            let cylinder = new THREE.Mesh(cylinderGeometry, this.textureMaterial);
+            let cylinder = new THREE.Mesh(cylinderGeometry, cxt.textureMaterial);
             cylinder.position.x = position[0];
             cylinder.position.y = position[1]
             cylinder.position.z = position[2]
-            this.scene.add(cylinder)
+            scene.add(cylinder)
         },
         createTorus() {
             let torusGeometry = new THREE.TorusGeometry(10, 4, 8, 8, Math.PI * 2 / 3);
@@ -89,14 +88,14 @@ export default {
             })
             let torus = new THREE.Mesh(torusGeometry, torusMaterial);
             torus.position.x = -10
-            this.scene.add(torus)
+            scene.add(torus)
         },
         createTorusKnot() {
             let torusKnotGeo = new THREE.TorusKnotGeometry(8, 2, 64, 8, 4, 2)
-            let torusKnot = new THREE.Mesh(torusKnotGeo, this.textureMaterial)
+            let torusKnot = new THREE.Mesh(torusKnotGeo, cxt.textureMaterial)
             torusKnot.position.x = 15
             torusKnot.position.z = 20
-            this.scene.add(torusKnot)
+            scene.add(torusKnot)
         },
         // 四面体
         createTetrahedron() {
@@ -109,7 +108,7 @@ export default {
             tetrahedron.position.x = 30;
             tetrahedron.position.y = 15;
             tetrahedron.position.z = -25
-            this.scene.add(tetrahedron)
+            scene.add(tetrahedron)
         },
         createOctahedron() {
             let octaGeo = new THREE.OctahedronGeometry(8)
@@ -123,7 +122,7 @@ export default {
             octa.position.x = 38;
             octa.position.y = 5;
             octa.position.z = -15
-            this.scene.add(octa)
+            scene.add(octa)
         },
         createIcosahedron() {
             let icosahedronGeo = new THREE.IcosahedronGeometry(8)
@@ -137,7 +136,7 @@ export default {
             icosahedron.position.x = 38;
             icosahedron.position.y = 15;
             icosahedron.position.z = 15
-            this.scene.add(icosahedron)
+            scene.add(icosahedron)
         },
         createRing(pos, start, len) {
             start = start || 0
@@ -151,7 +150,7 @@ export default {
             ring.position.x = pos[0]
             ring.position.y = pos[1];
             ring.position.z = pos[2]
-            this.scene.add(ring);
+            scene.add(ring);
         },
         createShape() {
 
@@ -168,14 +167,14 @@ export default {
             const geometry = new THREE.ShapeGeometry(heartShape);
             const material = new THREE.MeshBasicMaterial({ color: 0xFF6347, side: THREE.DoubleSide, });
             const mesh = new THREE.Mesh(geometry, material);
-            this.scene.add(mesh);
+            scene.add(mesh);
 
             let circle = new THREE.Shape()
             circle.arc(-58, 0, 8, 0, Math.PI * 2)
             const cGeometry = new THREE.ShapeGeometry(circle);
             const cMaterial = new THREE.MeshBasicMaterial({ color: 0xFF6347, side: THREE.DoubleSide, });
             const cMesh = new THREE.Mesh(cGeometry, cMaterial);
-            this.scene.add(cMesh);
+            scene.add(cMesh);
         },
         createCone() {
             const coneGeo = new THREE.ConeGeometry(5, 20, 32);
@@ -183,7 +182,7 @@ export default {
             const cone = new THREE.Mesh(coneGeo, coneMaterial);
             cone.position.x = -50;
             cone.position.z = 20
-            this.scene.add(cone);
+            scene.add(cone);
         },
         createGeo() {
             let vertices = [
@@ -217,7 +216,8 @@ export default {
                 wireframe: true
             })
             let mesh = new THREE.Mesh(bufferGeo, material)
-            this.scene.add(mesh)
+            scene.add(mesh)
         }
     }
+
 }

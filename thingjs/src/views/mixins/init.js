@@ -27,6 +27,8 @@ export default {
             // 设置背景颜色
             this.render.setClearColor(0x000000, 1.0);
             this.render.setSize(window.innerWidth, window.innerHeight)
+            this.render.shadowMap.enabled = true;
+            this.render.shadowMap.type = THREE.PCFSoftShadowMap;
             // 将渲染的元素添加到网页中
             document.getElementById(this.id).appendChild(this.render.domElement)
         },
@@ -57,8 +59,8 @@ export default {
             let childrenList = this.scene.children || []
             for (let i = 0; i < childrenList.length; i++) {
                 let obj = childrenList[i]
-                obj.rotation.x = timer * 5;
-                obj.rotation.y = timer * 2.5;
+                // obj.rotation.x = timer * 5;
+                // obj.rotation.y = timer * 2.5;
             }
             this.render.render(this.scene, this.camera)
         }

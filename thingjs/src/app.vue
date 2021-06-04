@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import threejs from './views/geometry'
+import threejs from './views/light'
 export default {
     name: 'App',
     components: {

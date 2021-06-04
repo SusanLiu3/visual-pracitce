@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-export function geometryProcess(cxt,scene) {
+export function geometryProcess(cxt, scene) {
     return {
         // 平面 长方形
-        createPlane( flag, position) {
+        createPlane(flag, position) {
             let planeGeometry = new THREE.PlaneGeometry(10, 5, 4, 2)
             let planeMaterial = new THREE.MeshBasicMaterial({
                 color: 0xffff00,
@@ -54,7 +54,7 @@ export function geometryProcess(cxt,scene) {
             sphere.receiveShadow = true
             scene.add(sphere);
         },
-        createCircle( segments, start, length) {
+        createCircle(segments, start, length) {
             segments = segments || 8
             start = start || 0
             length = length || Math.PI * 2
@@ -217,6 +217,28 @@ export function geometryProcess(cxt,scene) {
             })
             let mesh = new THREE.Mesh(bufferGeo, material)
             scene.add(mesh)
+        },
+        createLightPlane() {
+            let planeGeo = new THREE.PlaneGeometry(200, 60)
+            let planeMate = new THREE.MeshLambertMaterial({
+                color: 0xffff00,
+                side: THREE.DoubleSide,
+            })
+            let plane = new THREE.Mesh(planeGeo, planeMate)
+            plane.rotation.x = - 0.5 * Math.PI;
+            plane.receiveShadow =true
+            scene.add(plane)
+        },
+        createLightCylinder(topRadius, bottomRadius, height, position) {
+            let cylinderGeo = new THREE.CylinderGeometry(topRadius, bottomRadius, height);
+            let cylinderMaterial = new THREE.MeshLambertMaterial()
+            cylinderMaterial.color = new THREE.Color('#f45')
+            let cylinder = new THREE.Mesh(cylinderGeo, cylinderMaterial)
+            cylinder.position.x = position[0]
+            cylinder.position.y = position[1]
+            cylinder.position.z = position[2]
+            cylinder.receiveShadow = true
+            scene.add(cylinder)
         }
     }
 

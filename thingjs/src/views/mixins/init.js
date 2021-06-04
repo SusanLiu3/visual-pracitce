@@ -1,4 +1,6 @@
-import * as THREE from 'three'
+
+import * as THREE from 'three';
+import TrackballControls from 'three-trackballcontrols';
 export default {
     data() {
         return {
@@ -6,7 +8,8 @@ export default {
             camera: null,
             render: null,
             light: null,
-            plane: null
+            plane: null,
+            control: null
         }
     },
     methods: {
@@ -34,7 +37,18 @@ export default {
             this.light.castShadow = true;
             this.scene.add(this.light)
         },
+        initController() {
+            this.control = new TrackballControls(this.camera, this.render.domElement)
+            this.control.rotateSpeed = 5
+            this.control.zoomSpeed = 1;
+            this.control.panSpeed = .8
+            this.control.noZoom = false;
+            //动态阻尼系数 就是灵敏度
+            this.control.dynamicDampingFactor = 0.3;
+            this.control.addEventListener('change', this.renderer);
+        },
         animation() {
+            this.control.update()
             this.renderer()
             requestAnimationFrame(this.animation)
         },

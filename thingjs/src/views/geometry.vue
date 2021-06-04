@@ -14,8 +14,8 @@ export default {
         }
     },
     mounted() {
-
         this.init();
+        this.initController()
         this.createTextureMaterial()
         this.createLight();
         this.createGeometry()

@@ -22,7 +22,7 @@ export function geometryProcess(cxt, scene) {
             let boxGeometry = new THREE.BoxGeometry(10, 8, 6, 3, 2, 2)
             let boxMaterial = new THREE.MeshBasicMaterial()
             boxMaterial.color = new THREE.Color('#FFD700')
-            boxMaterial.wireframe = true;// 线框
+            boxMaterial.wireframe = true; // 线框
             let box = new THREE.Mesh(boxGeometry, boxMaterial)
             box.position.x = 10;
             box.position.y = 4;
@@ -154,7 +154,8 @@ export function geometryProcess(cxt, scene) {
         },
         createShape() {
 
-            const x = -45, y = 20;
+            const x = -45,
+                y = 20;
             const heartShape = new THREE.Shape();
             heartShape.moveTo(x + 5, y + 5);
             heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
@@ -165,20 +166,29 @@ export function geometryProcess(cxt, scene) {
             heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
 
             const geometry = new THREE.ShapeGeometry(heartShape);
-            const material = new THREE.MeshBasicMaterial({ color: 0xFF6347, side: THREE.DoubleSide, });
+            const material = new THREE.MeshBasicMaterial({
+                color: 0xFF6347,
+                side: THREE.DoubleSide,
+            });
             const mesh = new THREE.Mesh(geometry, material);
             scene.add(mesh);
 
             let circle = new THREE.Shape()
             circle.arc(-58, 0, 8, 0, Math.PI * 2)
             const cGeometry = new THREE.ShapeGeometry(circle);
-            const cMaterial = new THREE.MeshBasicMaterial({ color: 0xFF6347, side: THREE.DoubleSide, });
+            const cMaterial = new THREE.MeshBasicMaterial({
+                color: 0xFF6347,
+                side: THREE.DoubleSide,
+            });
             const cMesh = new THREE.Mesh(cGeometry, cMaterial);
             scene.add(cMesh);
         },
         createCone() {
             const coneGeo = new THREE.ConeGeometry(5, 20, 32);
-            const coneMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00, wireframe: true });
+            const coneMaterial = new THREE.MeshBasicMaterial({
+                color: 0xffff00,
+                wireframe: true
+            });
             const cone = new THREE.Mesh(coneGeo, coneMaterial);
             cone.position.x = -50;
             cone.position.z = 20
@@ -219,15 +229,17 @@ export function geometryProcess(cxt, scene) {
             scene.add(mesh)
         },
         createLightPlane() {
-            let planeGeo = new THREE.PlaneGeometry(200, 60)
+            let planeGeo = new THREE.PlaneGeometry(150, 60)
             let planeMate = new THREE.MeshLambertMaterial({
                 color: 0xffff00,
                 side: THREE.DoubleSide,
             })
             let plane = new THREE.Mesh(planeGeo, planeMate)
-            plane.rotation.x = - 0.5 * Math.PI;
-            plane.receiveShadow =true
+            plane.rotation.x = -0.5 * Math.PI;
+            plane.receiveShadow = true
             scene.add(plane)
+            cxt.plane = plane
+            // return plane
         },
         createLightCylinder(topRadius, bottomRadius, height, position) {
             let cylinderGeo = new THREE.CylinderGeometry(topRadius, bottomRadius, height);
@@ -238,6 +250,7 @@ export function geometryProcess(cxt, scene) {
             cylinder.position.y = position[1]
             cylinder.position.z = position[2]
             cylinder.receiveShadow = true
+            cylinder.castShadow = true
             scene.add(cylinder)
         }
     }

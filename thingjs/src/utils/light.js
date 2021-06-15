@@ -1,8 +1,9 @@
 import * as THREE from 'three'
 export function lightProcess(cxt) {
     return {
-        createAmbientLight() {
-            let light = new THREE.AmbientLight(0x444444)
+        createAmbientLight(color) {
+            color = color || 0x444444
+            let light = new THREE.AmbientLight(color)
             cxt.scene.add(light)
         },
         createSpotLight() {

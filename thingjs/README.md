@@ -64,5 +64,7 @@
   ```
 ## threejsAPI文档
    - [链接地址](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
-   - [THREE.Geometry removed](https://discourse.threejs.org/t/three-geometry-will-be-removed-from-core-with-r125/22401)  
+   - [THREE.Geometry removed](https://discourse.threejs.org/t/three-geometry-will-be-removed-from-core-with-r125/22401) 
+
+   - [Math.PI,Math.sin](https://www.cnblogs.com/xiejn/p/11901019.html) 
 

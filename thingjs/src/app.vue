@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import threejs from './views/light'
+import threejs from './views/tubeGeo'
 export default {
     name: 'App',
     components: {

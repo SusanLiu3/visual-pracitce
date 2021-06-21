@@ -46,7 +46,6 @@ export default {
           Math.random() * range - range / 2
         );
         geo.setAttribute( 'position', new THREE.BufferAttribute( points, 3 ) );
-        // geo.vertices.push(points);
         var color = new THREE.Color(0x00ff00);
         color.setHSL(
           color.getHSL().h,

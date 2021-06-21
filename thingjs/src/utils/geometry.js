@@ -252,6 +252,13 @@ export function geometryProcess(cxt, scene) {
             cylinder.receiveShadow = true
             cylinder.castShadow = true
             scene.add(cylinder)
+        },
+        createBasicMaterialBox() {
+            let boxGeo = new THREE.BoxGeometry(4, 6, 8)
+            let box = new THREE.Mesh(boxGeo, this.phongMaterial)
+            box.position.y = 3
+            box.castShadow = true
+            scene.add(box)
         }
     }
 

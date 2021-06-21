@@ -60,7 +60,7 @@
 
 ## 解决git push unable acess to 
   ```
-  git config --global http.proxy
+  git config --global --unset http.proxy
   ```
 ## threejsAPI文档
    - [链接地址](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
